@@ -4,23 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="googled4d0c7174e4c9c0e" />
-    <title>Leo Tools - Free Online Tools</title>
+    <title>Leo Tools - Free Online Tools & Games</title>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1113273813232585"
      crossorigin="anonymous"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             min-height: 100vh;
             color: #fff;
         }
-        
         header {
             background: rgba(0,0,0,0.3);
             padding: 20px;
@@ -30,7 +24,6 @@
             top: 0;
             z-index: 100;
         }
-        
         h1 {
             font-size: 2rem;
             background: linear-gradient(90deg, #00d9ff, #00ff88);
@@ -38,13 +31,11 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        
         .lang-switch {
             position: absolute;
             top: 20px;
             right: 20px;
         }
-        
         .lang-btn {
             background: rgba(255,255,255,0.1);
             border: 1px solid rgba(255,255,255,0.2);
@@ -53,36 +44,41 @@
             border-radius: 20px;
             cursor: pointer;
             font-size: 0.9rem;
-            transition: all 0.3s;
         }
-        
-        .lang-btn:hover {
-            background: rgba(255,255,255,0.2);
-        }
-        
-        .lang-btn.active {
-            background: #00d9ff;
-            color: #1a1a2e;
-        }
-        
+        .lang-btn:hover { background: rgba(255,255,255,0.2); }
+        .lang-btn.active { background: #00d9ff; color: #1a1a2e; }
         .subtitle {
             color: #888;
             margin-top: 5px;
         }
-        
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
         
+        /* Category Section */
+        .category {
+            margin-bottom: 40px;
+        }
+        .category-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .category-title.tools { border-color: #00d9ff; color: #00d9ff; }
+        .category-title.games { border-color: #ff6b6b; color: #ff6b6b; }
+        .category-title.other { border-color: #ffd700; color: #ffd700; }
+        
         .tools-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
-            margin-top: 20px;
         }
-        
         .tool-card {
             background: rgba(255,255,255,0.1);
             border-radius: 15px;
@@ -95,219 +91,181 @@
             color: inherit;
             display: block;
         }
-        
         .tool-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 30px rgba(0,217,255,0.2);
         }
-        
+        .tool-card:hover.games:hover {
+            box-shadow: 0 10px 30px rgba(255,107,107,0.2);
+        }
         .tool-icon {
-            font-size: 3rem;
+            font-size: 2.5rem;
             margin-bottom: 15px;
         }
-        
         .tool-title {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
             color: #00d9ff;
         }
-        
+        .tool-card.games .tool-title { color: #ff6b6b; }
+        .tool-card.other .tool-title { color: #ffd700; }
         .tool-desc {
             color: #aaa;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             line-height: 1.5;
         }
         
         .ad-section {
-            margin: 40px 0;
+            margin: 30px 0;
             padding: 20px;
             background: rgba(255,255,255,0.05);
             border-radius: 10px;
             text-align: center;
         }
-        
         footer {
             text-align: center;
             padding: 30px;
             color: #666;
             font-size: 0.85rem;
         }
-        
-        /* Tool Page Styles */
-        .tool-page {
-            display: none;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 30px 20px;
-        }
-        
-        .tool-page.active {
-            display: block;
-        }
-        
-        .back-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            text-decoration: none;
-            font-size: 1rem;
-            margin-bottom: 30px;
-            transition: all 0.3s;
-        }
-        
-        .back-btn:hover {
-            background: rgba(255,255,255,0.2);
-        }
-        
-        .tool-page h2 {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            color: #00d9ff;
-        }
-        
-        .tool-page textarea, .tool-page input {
-            width: 100%;
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px solid rgba(255,255,255,0.2);
-            background: rgba(0,0,0,0.3);
-            color: #fff;
-            font-size: 1rem;
-            margin-bottom: 15px;
-            font-family: inherit;
-        }
-        
-        .tool-page textarea {
-            min-height: 150px;
-            resize: vertical;
-        }
-        
-        .tool-page button {
-            background: linear-gradient(90deg, #00d9ff, #00ff88);
-            border: none;
-            padding: 12px 30px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: bold;
-            color: #1a1a2e;
-            transition: opacity 0.3s;
-            margin-right: 10px;
-            margin-bottom: 10px;
-        }
-        
-        .tool-page button:hover {
-            opacity: 0.8;
-        }
-        
-        .result {
-            margin-top: 20px;
-            padding: 15px;
-            background: rgba(0,0,0,0.3);
-            border-radius: 8px;
-            white-space: pre-wrap;
-            display: none;
-            word-break: break-all;
-        }
-        
-        .result.show {
-            display: block;
-        }
-        
-        .result img {
-            max-width: 100%;
-            border-radius: 8px;
-        }
     </style>
 </head>
 <body>
-    <!-- Main Page -->
-    <div id="main-page">
-        <header>
-            <div class="lang-switch">
-                <button class="lang-btn active" data-lang="en">EN</button>
-                <button class="lang-btn" data-lang="zh">中文</button>
-            </div>
-            <h1>🛠️ Leo Tools</h1>
-            <p class="subtitle" data-en="Free Online Tools Collection" data-zh="免费在线工具集合">Free Online Tools Collection</p>
-        </header>
+    <header>
+        <div class="lang-switch">
+            <button class="lang-btn active" data-lang="en">EN</button>
+            <button class="lang-btn" data-lang="zh">中文</button>
+        </div>
+        <h1>🛠️ Leo Tools</h1>
+        <p class="subtitle" data-en="Free Online Tools & Games" data-zh="免费在线工具和游戏">Free Online Tools & Games</p>
+    </header>
+    
+    <div class="container">
+        <!-- AdSense -->
+        <div class="ad-section">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-1113273813232585"
+                 data-ad-slot="1234567890"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+        </div>
         
-        <div class="container">
-            <!-- AdSense -->
-            <div class="ad-section">
-                <ins class="adsbygoogle"
-                     style="display:block"
-                     data-ad-client="ca-pub-1113273813232585"
-                     data-ad-slot="1234567890"
-                     data-ad-format="auto"
-                     data-full-width-responsive="true"></ins>
-            </div>
-            
+        <!-- Category 1: Tools -->
+        <div class="category">
+            <h2 class="category-title tools" data-en="🛠️ Tools" data-zh="🛠️ 工具">🛠️ Tools</h2>
             <div class="tools-grid">
                 <a href="tool-json.html" class="tool-card">
                     <div class="tool-icon">📄</div>
                     <div class="tool-title" data-en="JSON Formatter" data-zh="JSON 格式化">JSON Formatter</div>
-                    <div class="tool-desc" data-en="Format, compress, and validate JSON data" data-zh="在线格式化、压缩、校验 JSON 数据">Format, compress, and validate JSON data</div>
+                    <div class="tool-desc" data-en="Format, compress, and validate JSON" data-zh="格式化、压缩、校验 JSON">Format, compress, and validate JSON</div>
                 </a>
-                
                 <a href="tool-base64.html" class="tool-card">
                     <div class="tool-icon">🔐</div>
                     <div class="tool-title" data-en="Base64 Encoder" data-zh="Base64 编码">Base64 Encoder</div>
-                    <div class="tool-desc" data-en="Encode and decode Base64 strings" data-zh="Base64 编码/解码工具">Encode and decode Base64 strings</div>
+                    <div class="tool-desc" data-en="Encode and decode Base64" data-zh="Base64 编码/解码">Encode and decode Base64</div>
                 </a>
-                
                 <a href="tool-timestamp.html" class="tool-card">
                     <div class="tool-icon">⏰</div>
                     <div class="tool-title" data-en="Timestamp Converter" data-zh="时间戳转换">Timestamp Converter</div>
-                    <div class="tool-desc" data-en="Convert Unix timestamp to date and vice versa" data-zh="Unix 时间戳与日期互转">Convert Unix timestamp to date and vice versa</div>
+                    <div class="tool-desc" data-en="Convert Unix timestamp and date" data-zh="Unix 时间戳与日期互转">Convert Unix timestamp and date</div>
                 </a>
-                
                 <a href="tool-qrcode.html" class="tool-card">
                     <div class="tool-icon">📱</div>
                     <div class="tool-title" data-en="QR Code Generator" data-zh="二维码生成">QR Code Generator</div>
-                    <div class="tool-desc" data-en="Generate QR codes from text or URLs" data-zh="输入文字或链接生成二维码">Generate QR codes from text or URLs</div>
+                    <div class="tool-desc" data-en="Generate QR codes from text/URLs" data-zh="输入文字或链接生成二维码">Generate QR codes</div>
                 </a>
-                
                 <a href="tool-color.html" class="tool-card">
                     <div class="tool-icon">🎨</div>
                     <div class="tool-title" data-en="Color Converter" data-zh="颜色转换">Color Converter</div>
-                    <div class="tool-desc" data-en="Convert between HEX, RGB, and HSL colors" data-zh="HEX、RGB、HSL 颜色互转">Convert between HEX, RGB, and HSL colors</div>
+                    <div class="tool-desc" data-en="Convert HEX, RGB, HSL colors" data-zh="HEX、RGB、HSL 颜色互转">Convert HEX, RGB, HSL</div>
                 </a>
-                
                 <a href="tool-hash.html" class="tool-card">
                     <div class="tool-icon">🔑</div>
                     <div class="tool-title" data-en="Hash Generator" data-zh="Hash 生成">Hash Generator</div>
-                    <div class="tool-desc" data-en="Generate MD5, SHA1, SHA256 hashes" data-zh="MD5、SHA1、SHA256 加密">Generate MD5, SHA1, SHA256 hashes</div>
+                    <div class="tool-desc" data-en="Generate MD5, SHA1, SHA256" data-zh="MD5、SHA1、SHA256 加密">Generate MD5, SHA1, SHA256</div>
                 </a>
-                
                 <a href="tool-finnish.html" class="tool-card">
                     <div class="tool-icon">🇫🇮</div>
                     <div class="tool-title" data-en="Finnish Word Explorer" data-zh="芬兰语单词详解">Finnish Word Explorer</div>
-                    <div class="tool-desc" data-en="Analyze Finnish words with AI (base form, meaning, etymology)" data-zh="AI 分析芬兰语单词（原型、含义、词源）">Analyze Finnish words with AI</div>
+                    <div class="tool-desc" data-en="AI-powered Finnish word analysis" data-zh="AI 分析芬兰语单词（原型、含义、词源）">AI Finnish word analysis</div>
                 </a>
-            </div>
-            
-            <!-- AdSense -->
-            <div class="ad-section">
-                <ins class="adsbygoogle"
-                     style="display:block"
-                     data-ad-client="ca-pub-1113273813232585"
-                     data-ad-slot="9876543210"
-                     data-ad-format="auto"
-                     data-full-width-responsive="true"></ins>
+                <a href="voice-translator.html" class="tool-card">
+                    <div class="tool-icon">🎙️</div>
+                    <div class="tool-title" data-en="Voice Translator" data-zh="语音翻译">Voice Translator</div>
+                    <div class="tool-desc" data-en="AI voice translator with speech recognition" data-zh="AI 语音翻译，支持语音识别">AI voice translation</div>
+                </a>
+                <a href="photo-enhancer.html" class="tool-card">
+                    <div class="tool-icon">🖼️</div>
+                    <div class="tool-title" data-en="Background Remover" data-zh="背景移除">Background Remover</div>
+                    <div class="tool-desc" data-en="Remove image background" data-zh="移除图片背景">Remove image background</div>
+                </a>
+                <a href="document-converter.html" class="tool-card">
+                    <div class="tool-icon">📑</div>
+                    <div class="tool-title" data-en="Document Converter" data-zh="文档转换器">Document Converter</div>
+                    <div class="tool-desc" data-en="PDF, Word, Excel converter" data-zh="PDF、Word、Excel 转换">PDF, Word, Excel converter</div>
+                </a>
             </div>
         </div>
         
-        <footer>
-            <p>© 2026 Leo Tools | Let Tools Create Value</p>
-        </footer>
+        <!-- Category 2: Games -->
+        <div class="category">
+            <h2 class="category-title games" data-en="🎮 Games" data-zh="🎮 游戏">🎮 Games</h2>
+            <div class="tools-grid">
+                <a href="gobang.html" class="tool-card games">
+                    <div class="tool-icon">⭕</div>
+                    <div class="tool-title" data-en="Gobang (Five in a Row)" data-zh="五子棋">Gobang</div>
+                    <div class="tool-desc" data-en="Classic strategy game vs AI" data-zh="经典策略游戏，人机对战">Strategy game vs AI</div>
+                </a>
+                <a href="chess.html" class="tool-card games">
+                    <div class="tool-icon">♟️</div>
+                    <div class="tool-title" data-en="Chinese Chess" data-zh="中国象棋">Chinese Chess</div>
+                    <div class="tool-desc" data-en="Traditional board game" data-zh="传统棋类游戏">Traditional board game</div>
+                </a>
+                <a href="reversi.html" class="tool-card games">
+                    <div class="tool-icon">⚫</div>
+                    <div class="tool-title" data-en="Reversi (Othello)" data-zh="黑白棋">Reversi</div>
+                    <div class="tool-desc" data-en="Classic strategy game" data-zh="经典策略游戏">Classic strategy game</div>
+                </a>
+                <a href="liangliangkan.html" class="tool-card games">
+                    <div class="tool-icon">🧊</div>
+                    <div class="tool-title" data-en="Lianliankan (Fridge)" data-zh="连连看">Lianliankan</div>
+                    <div class="tool-desc" data-en="Food matching puzzle" data-zh="美食消除游戏">Food matching puzzle</div>
+                </a>
+                <a href="xiaoxiaole.html" class="tool-card games">
+                    <div class="tool-icon">🍎</div>
+                    <div class="tool-title" data-en="Match-3 (Fruits)" data-zh="水果消消乐">Match-3</div>
+                    <div class="tool-desc" data-en="Fruit matching puzzle" data-zh="水果消除游戏">Fruit matching puzzle</div>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Category 3: Other -->
+        <div class="category">
+            <h2 class="category-title other" data-en="🔧 Other" data-zh="🔧 其他">🔧 Other</h2>
+            <div class="tools-grid">
+                <a href="agent-monitor.html" class="tool-card other">
+                    <div class="tool-icon">🤖</div>
+                    <div class="tool-title" data-en="Agent Monitor" data-zh="AI 代理监控">Agent Monitor</div>
+                    <div class="tool-desc" data-en="View AI agent status and control" data-zh="查看 AI 代理状态并控制">AI agent status control</div>
+                </a>
+            </div>
+        </div>
+        
+        <!-- AdSense -->
+        <div class="ad-section">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-1113273813232585"
+                 data-ad-slot="9876543210"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+        </div>
     </div>
+    
+    <footer>
+        <p>© 2026 Leo Tools | Let Tools & Games Create Value</p>
+    </footer>
     
     <script>
         // Language Switching
@@ -317,19 +275,14 @@
             btn.addEventListener('click', () => {
                 const lang = btn.dataset.lang;
                 
-                // Update buttons
                 langBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 
-                // Update all translatable elements
                 document.querySelectorAll('[data-en][data-zh]').forEach(el => {
                     el.textContent = el.dataset[lang];
                 });
                 
-                // Update HTML lang
                 document.documentElement.lang = lang;
-                
-                // Save preference
                 localStorage.setItem('leo-tools-lang', lang);
             });
         });
