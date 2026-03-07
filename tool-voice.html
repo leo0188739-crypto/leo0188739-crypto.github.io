@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Reader - Leo Tools</title>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1113273813232585"
+     crossorigin="anonymous"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #fff;
+        }
+        header {
+            background: rgba(0,0,0,0.3);
+            padding: 20px;
+            backdrop-filter: blur(10px);
+        }
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        h1 { font-size: 1.5rem; }
+        h1 a { color: #00d9ff; text-decoration: none; }
+        .lang-group {
+            display: flex;
+            gap: 10px;
+        }
+        .lang-btn {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        .lang-btn:hover { background: rgba(255,255,255,0.2); }
+        .lang-btn.active { background: #00d9ff; color: #1a1a2e; }
+        
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .description {
+            color: #aaa;
+            margin-bottom: 30px;
+        }
+        
+        .voice-select {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .voice-btn {
+            flex: 1;
+            padding: 20px;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 12px;
+            background: rgba(255,255,255,0.05);
+            color: #fff;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .voice-btn:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        .voice-btn.active {
+            border-color: #00d9ff;
+            background: rgba(0, 217, 255, 0.2);
+        }
+        .voice-btn.selected {
+            border-color: #00d9ff;
+            background: rgba(0, 217, 255, 0.3);
+            box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 12px;
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 120px;
+            margin-bottom: 25px;
+        }
+        textarea::placeholder { color: #666; }
+        textarea:focus { outline: none; border-color: #00d9ff; }
+        
+        .play-btn {
+            width: 100%;
+            padding: 18px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #00d9ff 0%, #00aaff 100%);
+            color: #1a1a2e;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .play-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0, 217, 255, 0.3); }
+        .play-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+        
+        .ad-section {
+            margin-top: 40px;
+            text-align: center;
+        }
+        
+        .current-voice {
+            text-align: center;
+            margin-bottom: 15px;
+            color: #00d9ff;
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1><a href="index.html">← 🛠️ Leo Tools</a></h1>
+            <div class="lang-group">
+                <button class="lang-btn" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="zh">中文</button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <h2 data-en="🎙️ Voice Reader" data-zh="🎙️ 语音朗读">🎙️ Voice Reader</h2>
+        
+        <p class="description" data-en="Select a voice and enter text to hear it read aloud." 
+           data-zh="选择声音并输入文字，即可听到朗读。">
+        </p>
+        
+        <p class="current-voice" id="currentVoice">Current voice: Shaw</p>
+        
+        <div class="voice-select">
+            <button class="voice-btn selected" data-voice="shaw" data-id="e4e5ad2e-1252-48b8-94a8-55dc2ac163aa">
+                🔊 Shaw
+            </button>
+            <button class="voice-btn" data-voice="vicki" data-id="71ca9380-3051-4cd9-b072-d17da24ce16e">
+                🎤 Vicki
+            </button>
+        </div>
+        
+        <textarea id="textInput" placeholder="Enter text here..." 
+                  data-en-placeholder="Enter text here..." 
+                  data-zh-placeholder="在这里输入文字..."></textarea>
+        
+        <button class="play-btn" id="playBtn" onclick="playAudio()">
+            ▶ <span data-en="Play" data-zh="播放">Play</span>
+        </button>
+        
+        <div class="ad-section">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-1113273813232585"
+                 data-ad-slot="1234567890"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+        </div>
+    </div>
+    
+    <script>
+        // Language
+        const langBtns = document.querySelectorAll('.lang-btn');
+        let currentLang = localStorage.getItem('leo-tools-lang') || 'en';
+        
+        function updateLanguage(lang) {
+            currentLang = lang;
+            document.querySelectorAll('[data-en][data-zh]').forEach(el => {
+                el.textContent = el.dataset[lang];
+            });
+            document.querySelectorAll('[data-en-placeholder][data-zh-placeholder]').forEach(el => {
+                el.placeholder = el.dataset[lang + '-placeholder'];
+            });
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            document.querySelector(`.lang-btn[data-lang="${lang}"]`).classList.add('active');
+            document.documentElement.lang = lang;
+            localStorage.setItem('leo-tools-lang', lang);
+        }
+        
+        langBtns.forEach(btn => {
+            btn.addEventListener('click', () => updateLanguage(btn.dataset.lang));
+        });
+        
+        const savedLang = localStorage.getItem('leo-tools-lang') || 'en';
+        document.querySelector(`.lang-btn[data-lang="${savedLang}"]`).click();
+        
+        // Voice selection
+        let selectedVoice = {
+            name: 'Shaw',
+            id: 'e4e5ad2e-1252-48b8-94a8-55dc2ac163aa'
+        };
+        
+        document.querySelectorAll('.voice-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.voice-btn').forEach(b => b.classList.remove('selected', 'active'));
+                btn.classList.add('selected', 'active');
+                selectedVoice = {
+                    name: btn.dataset.voice === 'shaw' ? 'Shaw' : 'Vicki',
+                    id: btn.dataset.id
+                };
+                document.getElementById('currentVoice').textContent = 
+                    currentLang === 'en' ? `Current voice: ${selectedVoice.name}` : `当前声音: ${selectedVoice.name}`;
+            });
+        });
+        
+        // Play audio
+        async function playAudio() {
+            const text = document.getElementById('textInput').value.trim();
+            if (!text) {
+                alert(currentLang === 'en' ? 'Please enter some text first!' : '请先输入文字！');
+                return;
+            }
+            
+            const btn = document.getElementById('playBtn');
+            btn.disabled = true;
+            btn.innerHTML = '⏳ ' + (currentLang === 'en' ? 'Generating...' : '生成中...');
+            
+            try {
+                const response = await fetch('http://localhost:17493/generate', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        text: text,
+                        profile_id: selectedVoice.id,
+                        language: 'zh'
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.audio_path) {
+                    // Play the audio
+                    const audio = new Audio('file://' + data.audio_path);
+                    audio.play();
+                    
+                    btn.innerHTML = '▶ ' + (currentLang === 'en' ? 'Playing...' : '播放中...');
+                    audio.onended = () => {
+                        btn.disabled = false;
+                        btn.innerHTML = '▶ ' + (currentLang === 'en' ? 'Play' : '播放');
+                    };
+                } else {
+                    throw new Error(data.detail || 'Failed to generate audio');
+                }
+            } catch (e) {
+                console.error(e);
+                alert(currentLang === 'en' ? 'Error generating audio. Make sure Voicebox is running!' : '生成音频出错，请确保 Voicebox 正在运行！');
+                btn.disabled = false;
+                btn.innerHTML = '▶ ' + (currentLang === 'en' ? 'Play' : '播放');
+            }
+        }
+        
+        // Load ads
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</body>
+</html>
