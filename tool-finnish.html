@@ -198,27 +198,53 @@
         const savedLang = localStorage.getItem('leo-tools-lang') || 'en';
         document.querySelector(`.lang-btn[data-lang="${savedLang}"]`).click();
         
-        // Speak Word using Web Speech API
-        function speakWord(rate) {
+        // Speak Word using local MLX TTS server (supports Finnish!)
+        async function speakWord(rate) {
             const word = document.getElementById('word-input').value.trim();
             if (!word) {
                 alert('Please enter a word first');
                 return;
             }
             
-            // Use Finnish voice if available
-            const utterance = new SpeechSynthesisUtterance(word);
-            utterance.lang = 'fi-FI'; // Finnish
-            utterance.rate = rate; // 1 = normal, 0.75 = slow
+            const btn = event.target;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '⏳ Generating...';
+            btn.disabled = true;
             
-            // Try to find a Finnish voice
-            const voices = speechSynthesis.getVoices();
-            const finnishVoice = voices.find(v => v.lang.includes('fi'));
-            if (finnishVoice) {
-                utterance.voice = finnishVoice;
+            try {
+                const response = await fetch('http://localhost:3000/speak', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        text: word,
+                        language: 'fi'
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Play the audio
+                    const audioBytes = atob(data.audio);
+                    const audioArray = new Uint8Array(audioBytes.length);
+                    for (let i = 0; i < audioBytes.length; i++) {
+                        audioArray[i] = audioBytes.charCodeAt(i);
+                    }
+                    const audioBlob = new Blob([audioArray], {type: 'audio/wav'});
+                    const audioUrl = URL.createObjectURL(audioBlob);
+                    const audio = new Audio(audioUrl);
+                    audio.playbackRate = rate;
+                    audio.play();
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            } catch (e) {
+                console.error(e);
+                alert('Failed to generate speech. Make sure the TTS server is running.');
             }
             
-            speechSynthesis.speak(utterance);
+            btn.innerHTML = originalText;
+            btn.disabled = false;
         }
         
         // Preload voices
