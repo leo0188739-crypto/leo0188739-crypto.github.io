@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finnish Word Explorer - Leo Tools</title>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1113273813232585"
+     crossorigin="anonymous"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #fff;
+        }
+        header {
+            background: rgba(0,0,0,0.3);
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        h1 {
+            font-size: 1.5rem;
+            background: linear-gradient(90deg, #00d9ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .lang-group { display: flex; gap: 8px; }
+        .lang-btn {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        .lang-btn.active { background: #00d9ff; color: #1a1a2e; }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            margin-bottom: 30px;
+        }
+        .back-btn:hover { background: rgba(255,255,255,0.2); }
+        h2 { font-size: 1.8rem; margin-bottom: 20px; color: #00d9ff; }
+        .description {
+            color: #aaa;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(0,0,0,0.3);
+            color: #fff;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #00d9ff;
+        }
+        button {
+            background: linear-gradient(90deg, #00d9ff, #00ff88);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #1a1a2e;
+            margin-right: 10px;
+        }
+        button:disabled { opacity: 0.6; cursor: not-allowed; }
+        
+        .result {
+            margin-top: 30px;
+            padding: 25px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            display: none;
+            line-height: 1.8;
+        }
+        .result.show { display: block; }
+        .result h3 {
+            color: #00d9ff;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 10px;
+        }
+        .result p { margin-bottom: 12px; }
+        .result .label {
+            color: #00ff88;
+            font-weight: bold;
+            display: inline-block;
+            min-width: 100px;
+        }
+        .result .en { color: #ffd700; }
+        
+        .loading {
+            text-align: center;
+            padding: 20px;
+            display: none;
+            color: #00d9ff;
+        }
+        .loading.show { display: block; }
+        .ad-section { margin: 20px 0; text-align: center; }
+        
+        .note {
+            background: rgba(255,200,0,0.1);
+            border: 1px solid rgba(255,200,0,0.3);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            color: #ffd700;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>🛠️ Leo Tools</h1>
+            <div class="lang-group">
+                <button class="lang-btn" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="zh">中文</button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <a href="/" class="back-btn">← <span data-en="Back to Tools" data-zh="返回工具主页">Back to Tools</span></a>
+        
+        <h2 data-en="Finnish Word Explorer" data-zh="芬兰语单词详解">Finnish Word Explorer</h2>
+        
+        <div class="note" data-en="💡 This tool uses AI to analyze Finnish words. Enter a word and click 'Explain' to get a detailed analysis in Chinese with English translation."
+           data-zh="💡 此工具使用 AI 分析芬兰语单词。输入单词后点击"解释"按钮，即可获得详细的中文解释和英文翻译。">
+            💡 This tool uses AI to analyze Finnish words.
+        </div>
+        
+        <p class="description" data-en="Enter a Finnish word to get a detailed explanation including its base form, part of speech, meaning, etymology, and translations in both Chinese and English." 
+           data-zh="输入一个芬兰语单词，获取详细解释，包括：原型、词性、中文含义、词根来源，以及中文和英文翻译。">
+            Enter a Finnish word...
+        </p>
+        
+        <input type="text" id="word-input" placeholder="Enter Finnish word...">
+        
+        <button onclick="explainWord()" id="explain-btn" data-en="Explain Word" data-zh="解释单词">Explain Word</button>
+        
+        <div class="loading" id="loading">
+            <span data-en="🤔 Analyzing word, please wait..." data-zh="🤔 正在分析单词，请稍候...">Analyzing...</span>
+        </div>
+        
+        <div id="result" class="result"></div>
+        
+        <div class="ad-section">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-1113273813232585"
+                 data-ad-slot="1234567890"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+        </div>
+    </div>
+    
+    <script>
+        // Language
+        const langBtns = document.querySelectorAll('.lang-btn');
+        let currentLang = localStorage.getItem('leo-tools-lang') || 'en';
+        
+        function updateLanguage(lang) {
+            currentLang = lang;
+            document.querySelectorAll('[data-en][data-zh]').forEach(el => {
+                el.textContent = el.dataset[lang];
+            });
+            document.querySelectorAll('input[data-placeholder-en]').forEach(el => {
+                el.placeholder = el.dataset[lang + '-placeholder'] || el.placeholder;
+            });
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            document.querySelector(`.lang-btn[data-lang="${lang}"]`).classList.add('active');
+            document.documentElement.lang = lang;
+            localStorage.setItem('leo-tools-lang', lang);
+        }
+        
+        langBtns.forEach(btn => {
+            btn.addEventListener('click', () => updateLanguage(btn.dataset.lang));
+        });
+        
+        // Set initial language
+        const savedLang = localStorage.getItem('leo-tools-lang') || 'en';
+        document.querySelector(`.lang-btn[data-lang="${savedLang}"]`).click();
+        
+        // Explain Word via OpenClaw Gateway
+        async function explainWord() {
+            const word = document.getElementById('word-input').value.trim();
+            if (!word) return;
+            
+            const btn = document.getElementById('explain-btn');
+            const loading = document.getElementById('loading');
+            const result = document.getElementById('result');
+            
+            btn.disabled = true;
+            loading.classList.add('show');
+            result.classList.remove('show');
+            
+            const isZh = currentLang === 'zh';
+            const prompt = isZh 
+                ? `请详细解释以下芬兰语单词，给出：1.原型(如果是变形词) 2.词性(动词/名词/形容词/副词等) 3.中文含义 4.词根来源/词源 5.英文翻译。用中文回复，英文翻译单独列出。请尽可能详细。单词：${word}`
+                : `Please explain this Finnish word in detail: 1. base/original form (if conjugated) 2. part of speech (verb/noun/adjective/adverb etc) 3. meaning in Chinese 4. etymology/word roots 5. English translation. Reply in English. Be as detailed as possible. Word: ${word}`;
+            
+            try {
+                // Call OpenClaw gateway for AI analysis
+                const response = await fetch('http://127.0.0.1:18789/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        model: 'minimax/MiniMax-M2.5',
+                        messages: [{role: 'user', content: prompt}],
+                        temperature: 0.7,
+                        max_tokens: 1000
+                    })
+                });
+                
+                const data = await response.json();
+                const explanation = data.choices?.[0]?.message?.content || data.choices?.[0]?.text || 'Error getting explanation';
+                
+                // Format the result
+                result.innerHTML = `<h3>📖 ${word}</h3><pre style="white-space: pre-wrap; font-family: inherit; line-height: 1.8; margin: 0;">${explanation}</pre>`;
+            } catch (e) {
+                // Fallback: show a message suggesting to try from OpenClaw directly
+                const msg = isZh 
+                    ? `无法连接到 AI 服务。请确保 OpenClaw Gateway 正在运行。\n\n或者你可以直接在 Telegram/WhatsApp 上问我："解释芬兰语单词 ${word}"`
+                    : `Cannot connect to AI service. Make sure OpenClaw Gateway is running.\n\nOr you can ask me directly on Telegram/WhatsApp: "Explain Finnish word ${word}"`;
+                result.innerHTML = `<h3>${word}</h3><p>${msg}</p>`;
+            }
+            
+            loading.classList.remove('show');
+            btn.disabled = false;
+            result.classList.add('show');
+        }
+    </script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</body>
+</html>
