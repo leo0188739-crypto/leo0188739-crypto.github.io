@@ -1,5 +1,13 @@
 [
   {
+    "id": "5ab15feb",
+    "name": "Generated Test Story",
+    "filename": "story_5ab15feb.wav",
+    "type": "tts",
+    "url": "https://leo0188739-crypto.github.io/audio-stories/story_5ab15feb.wav",
+    "createdAt": "2026-03-07T23:00:00Z"
+  },
+  {
     "id": "77d04908",
     "name": "Manual Test Story",
     "filename": "story_77d04908.wav",
