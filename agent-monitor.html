@@ -219,9 +219,17 @@
 </head>
 <body>
     <header style="background:rgba(0,0,0,0.3);padding:15px;position:sticky;top:0;z-index:100;display:flex;justify-content:space-between;align-items:center;">
-        <a href="index.html" style="color:#00d9ff;text-decoration:none;font-size:1.2rem;">← Back</a>
-        <button class="lang-btn" onclick="alert('Language toggle coming soon')">EN/中文</button>
+        <a href="index.html" style="color:#00d9ff;text-decoration:none;font-size:1.2rem;"<span data-en="← Back" data-zh="← 返回">← Back</span></a>
+        <button class="lang-btn" onclick="toggleLang(this)">EN</button>
     </header>
+    <script>
+    let currentLang = 'en';
+    function toggleLang(btn) {
+        currentLang = currentLang === 'en' ? 'zh' : 'en';
+        btn.textContent = currentLang === 'en' ? 'EN' : '中文';
+        document.querySelectorAll('[data-en][data-zh]').forEach(el => el.textContent = el.dataset[currentLang]);
+    }
+    </script>
     <div class="container">
         <h1><span>🤖</span> AI Agent 状态监控</h1>
         

@@ -147,6 +147,15 @@
         
         <input type="text" id="word-input" placeholder="Enter Finnish word...">
         
+        <div style="margin-bottom: 15px;">
+            <button onclick="speakWord(1)" style="background:#00d9ff;color:#1a1a2e;padding:10px 20px;border-radius:8px;border:none;margin-right:10px;cursor:pointer;">
+                🔊 <span data-en="Normal Speed" data-zh="正常速度">Normal Speed</span>
+            </button>
+            <button onclick="speakWord(0.75)" style="background:#9b59b6;color:#fff;padding:10px 20px;border-radius:8px;border:none;cursor:pointer;">
+                🐢 <span data-en="Slow Speed" data-zh="慢速">Slow Speed</span>
+            </button>
+        </div>
+        
         <button onclick="explainWord()" id="explain-btn" data-en="Explain Word" data-zh="解释单词">Explain Word</button>
         
         <div class="loading" id="loading">
@@ -188,6 +197,32 @@
         
         const savedLang = localStorage.getItem('leo-tools-lang') || 'en';
         document.querySelector(`.lang-btn[data-lang="${savedLang}"]`).click();
+        
+        // Speak Word using Web Speech API
+        function speakWord(rate) {
+            const word = document.getElementById('word-input').value.trim();
+            if (!word) {
+                alert('Please enter a word first');
+                return;
+            }
+            
+            // Use Finnish voice if available
+            const utterance = new SpeechSynthesisUtterance(word);
+            utterance.lang = 'fi-FI'; // Finnish
+            utterance.rate = rate; // 1 = normal, 0.75 = slow
+            
+            // Try to find a Finnish voice
+            const voices = speechSynthesis.getVoices();
+            const finnishVoice = voices.find(v => v.lang.includes('fi'));
+            if (finnishVoice) {
+                utterance.voice = finnishVoice;
+            }
+            
+            speechSynthesis.speak(utterance);
+        }
+        
+        // Preload voices
+        speechSynthesis.onvoiceschanged = () => {};
         
         // Explain Word via Groq API
         async function explainWord() {
