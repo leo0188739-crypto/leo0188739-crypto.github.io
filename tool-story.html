@@ -50,17 +50,44 @@
         h2 { margin-bottom: 10px; }
         .description { color: #aaa; margin-bottom: 30px; }
         
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 12px;
+            background: rgba(255,255,255,0.05);
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .tab-btn:hover { background: rgba(255,255,255,0.1); }
+        .tab-btn.active {
+            border-color: #00d9ff;
+            background: rgba(0,217,255,0.2);
+        }
+        
+        /* Form Sections */
+        .form-section { display: none; }
+        .form-section.active { display: block; }
+        
+        /* Upload Section */
         .upload-section {
             background: rgba(255,255,255,0.05);
             border: 2px dashed rgba(255,255,255,0.2);
             border-radius: 16px;
             padding: 40px;
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             transition: all 0.3s;
         }
         .upload-section:hover { border-color: #00d9ff; }
-        .upload-section.dragover { border-color: #00d9ff; background: rgba(0,217,255,0.1); }
         
         .upload-btn {
             background: linear-gradient(135deg, #00d9ff 0%, #00aaff 100%);
@@ -77,6 +104,14 @@
         
         .file-input { display: none; }
         
+        .selected-file {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(0,217,255,0.1);
+            border-radius: 10px;
+            display: none;
+        }
+        
         .name-input {
             width: 100%;
             padding: 15px;
@@ -85,29 +120,102 @@
             background: rgba(255,255,255,0.1);
             color: #fff;
             font-size: 1rem;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
         .name-input::placeholder { color: #666; }
         .name-input:focus { outline: none; border-color: #00d9ff; }
         
-        .stories-list {
-            margin-top: 30px;
+        /* Text Input Section */
+        .text-input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 12px;
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            font-size: 1rem;
+            min-height: 150px;
+            resize: vertical;
+            margin-bottom: 20px;
         }
+        .text-input::placeholder { color: #666; }
+        .text-input:focus { outline: none; border-color: #00d9ff; }
+        
+        /* Language Select */
+        .lang-select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+        .lang-select option { background: #1a1a2e; }
+        
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .submit-btn.upload-style {
+            background: linear-gradient(135deg, #00d9ff 0%, #00aaff 100%);
+            color: #1a1a2e;
+        }
+        .submit-btn.gen-style {
+            background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+            color: #fff;
+        }
+        .submit-btn:hover { transform: translateY(-2px); }
+        .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+        
+        /* Stories List */
+        .stories-list { margin-top: 40px; }
+        .stories-title { margin-bottom: 15px; color: #aaa; }
+        
         .story-card {
             background: rgba(255,255,255,0.05);
             border: 1px solid rgba(255,255,255,0.1);
             border-radius: 12px;
             padding: 20px;
             margin-bottom: 15px;
+        }
+        .story-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 10px;
         }
-        .story-info { flex: 1; }
-        .story-name { font-size: 1.1rem; font-weight: bold; color: #00d9ff; margin-bottom: 5px; }
-        .story-file { color: #888; font-size: 0.9rem; }
-        
-        .play-btns { display: flex; gap: 10px; }
+        .story-name { font-size: 1.1rem; font-weight: bold; color: #00d9ff; }
+        .story-type { 
+            font-size: 0.8rem; 
+            padding: 4px 10px; 
+            border-radius: 20px; 
+            background: rgba(155,89,182,0.3);
+            color: #bb8fce;
+        }
+        .story-type.audio { background: rgba(0,217,255,0.2); color: #00d9ff; }
+        .story-content {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            max-height: 60px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .play-btns { display: flex; gap: 10px; flex-wrap: wrap; }
         .play-btn {
             padding: 10px 20px;
             border: none;
@@ -119,20 +227,15 @@
             align-items: center;
             gap: 8px;
         }
-        .play-btn.ref { background: rgba(155,89,182,0.3); color: #fff; border: 1px solid rgba(155,89,182,0.5); }
-        .play-btn.gen { background: linear-gradient(135deg, #00d9ff 0%, #00aaff 100%); color: #1a1a2e; }
-        .play-btn:hover { transform: translateY(-2px); }
-        .play-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-        
-        .delete-btn {
+        .play-btn.main {
+            background: linear-gradient(135deg, #00d9ff 0%, #00aaff 100%);
+            color: #1a1a2e;
+        }
+        .play-btn.delete {
             background: rgba(255,71,87,0.2);
             color: #ff4757;
-            border: 1px solid rgba(255,71,87,0.3);
-            padding: 8px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-left: 10px;
         }
+        .play-btn:hover { transform: translateY(-2px); }
         
         .empty-state { text-align: center; color: #666; padding: 40px; }
         
@@ -153,45 +256,78 @@
     <div class="container">
         <h2 data-en="📖 Story Telling" data-zh="📖 讲故事">📖 Story Telling</h2>
         
-        <p class="description" data-en="Upload an audio file as reference voice, name your story, and generate a new audio with TTS."
-           data-zh="上传音频作为参考声音，给故事命名，然后用 TTS 生成新音频。">
+        <p class="description" data-en="Save audio files as stories, or generate TTS audio from text."
+           data-zh="将音频文件保存为故事，或从文字生成 TTS 音频。">
         </p>
         
-        <!-- Upload Section -->
-        <div class="upload-section" id="uploadSection">
-            <input type="file" id="fileInput" class="file-input" accept="audio/*">
-            <button class="upload-btn" onclick="document.getElementById('fileInput').click()">
-                🎤 <span data-en="Upload Reference Audio" data-zh="上传参考音频">Upload Reference Audio</span>
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="audio" onclick="switchTab('audio')">
+                🎵 <span data-en="Upload Audio" data-zh="上传音频">Upload Audio</span>
             </button>
-            <p style="margin-top: 15px; color: #888;" data-en="Or drag and drop audio file here" data-zh="或拖拽音频文件到此处">
-                Or drag and drop audio file here
-            </p>
+            <button class="tab-btn" data-tab="text" onclick="switchTab('text')">
+                ✨ <span data-en="Generate from Text" data-zh="文字生成">Generate from Text</span>
+            </button>
         </div>
         
-        <!-- Selected File Display -->
-        <div id="selectedFile" style="display:none; margin-bottom: 20px; padding: 15px; background: rgba(0,217,255,0.1); border-radius: 10px;">
-            <span style="color: #00d9ff;">📎</span> <span id="fileName"></span>
-            <button onclick="playRefAudio()" style="margin-left: 15px; padding: 8px 15px; border-radius: 6px; border: none; background: #00d9ff; color: #1a1a2e; cursor: pointer;">▶ Play</button>
+        <!-- Tab 1: Upload Audio -->
+        <div class="form-section active" id="audioSection">
+            <div class="upload-section" id="uploadSection">
+                <input type="file" id="audioFileInput" class="file-input" accept="audio/*">
+                <button class="upload-btn" onclick="document.getElementById('audioFileInput').click()">
+                    🎤 <span data-en="Select Audio File" data-zh="选择音频文件">Select Audio File</span>
+                </button>
+                <p style="margin-top: 15px; color: #888;" data-en="Or drag and drop here" data-zh="或拖拽到此处">
+                    Or drag and drop here
+                </p>
+            </div>
+            
+            <div class="selected-file" id="audioFileDisplay">
+                <span style="color: #00d9ff;">📎</span> <span id="audioFileName"></span>
+            </div>
+            
+            <input type="text" id="audioStoryName" class="name-input" 
+                   placeholder="Enter story name..." 
+                   data-en-placeholder="Enter story name..."
+                   data-zh-placeholder="输入故事名称...">
+            
+            <button class="submit-btn upload-style" onclick="saveAudioStory()">
+                💾 <span data-en="Save Story" data-zh="保存故事">Save Story</span>
+            </button>
         </div>
         
-        <!-- Story Name Input -->
-        <input type="text" id="storyName" class="name-input" 
-               placeholder="Enter story name..." 
-               data-en-placeholder="Enter story name..."
-               data-zh-placeholder="输入故事名称...">
-        
-        <!-- Generate Button -->
-        <button class="upload-btn" onclick="generateStory()" style="width: 100%;">
-            ✨ <span data-en="Generate Story Audio" data-zh="生成故事音频">Generate Story Audio</span>
-        </button>
+        <!-- Tab 2: Generate from Text -->
+        <div class="form-section" id="textSection">
+            <input type="text" id="textStoryName" class="name-input" 
+                   placeholder="Story title..." 
+                   data-en-placeholder="Story title..."
+                   data-zh-placeholder="故事标题...">
+            
+            <textarea id="textContent" class="text-input" 
+                      placeholder="Enter story content..." 
+                      data-en-placeholder="Enter story content..."
+                      data-zh-placeholder="输入故事内容..."></textarea>
+            
+            <select id="voiceLang" class="lang-select">
+                <option value="zh">🇨🇳 中文</option>
+                <option value="en">🇺🇸 English</option>
+                <option value="fi">🇫🇮 Suomi</option>
+                <option value="ja">🇯🇵 日本語</option>
+                <option value="ko">🇰🇷 한국어</option>
+            </select>
+            
+            <button class="submit-btn gen-style" onclick="generateTextStory()">
+                ✨ <span data-en="Generate & Save Story" data-zh="生成并保存故事">Generate & Save Story</span>
+            </button>
+        </div>
         
         <!-- Stories List -->
         <div class="stories-list">
-            <h3 style="margin-bottom: 15px; color: #aaa;" data-en="My Stories" data-zh="我的故事">My Stories</h3>
+            <h3 class="stories-title" data-en="My Stories" data-zh="我的故事">My Stories</h3>
             <div id="storiesContainer">
-                <p class="empty-state" data-en="No stories yet. Upload audio and generate your first story!" 
-                   data-zh="还没有故事。上传音频并生成你的第一个故事！">
-                    No stories yet. Upload audio and generate your first story!
+                <p class="empty-state" data-en="No stories yet. Create your first story!"
+                   data-zh="还没有故事。创建你的第一个故事！">
+                    No stories yet. Create your first story!
                 </p>
             </div>
         </div>
@@ -232,136 +368,144 @@
         const savedLang = localStorage.getItem('leo-tools-lang') || 'en';
         document.querySelector(`.lang-btn[data-lang="${savedLang}"]`).click();
         
-        // File Upload
-        let selectedAudioFile = null;
-        let refAudioUrl = null;
+        // Tab Switching
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.form-section').forEach(s => s.classList.remove('active'));
+            document.querySelector(`.tab-btn[data-tab="${tab}"]`).classList.add('active');
+            document.getElementById(tab + 'Section').classList.add('active');
+        }
         
-        const fileInput = document.getElementById('fileInput');
+        // Audio Upload
+        let selectedAudioFile = null;
+        let audioFileUrl = null;
+        
+        const audioFileInput = document.getElementById('audioFileInput');
         const uploadSection = document.getElementById('uploadSection');
         
-        fileInput.addEventListener('change', handleFileSelect);
+        audioFileInput.addEventListener('change', handleAudioFile);
         
         // Drag and drop
         uploadSection.addEventListener('dragover', (e) => {
             e.preventDefault();
-            uploadSection.classList.add('dragover');
+            uploadSection.style.borderColor = '#00d9ff';
         });
         uploadSection.addEventListener('dragleave', () => {
-            uploadSection.classList.remove('dragover');
+            uploadSection.style.borderColor = 'rgba(255,255,255,0.2)';
         });
         uploadSection.addEventListener('drop', (e) => {
             e.preventDefault();
-            uploadSection.classList.remove('dragover');
+            uploadSection.style.borderColor = 'rgba(255,255,255,0.2)';
             const files = e.dataTransfer.files;
-            if (files.length > 0) {
-                handleFile(files[0]);
-            }
+            if (files.length > 0) handleAudioFile({target: {files: files}});
         });
         
-        function handleFileSelect(e) {
+        function handleAudioFile(e) {
             const file = e.target.files[0];
-            handleFile(file);
-        }
-        
-        function handleFile(file) {
-            if (!file.type.startsWith('audio/')) {
-                alert(currentLang === 'en' ? 'Please upload an audio file!' : '请上传音频文件！');
+            if (!file || !file.type.startsWith('audio/')) {
+                alert(currentLang === 'en' ? 'Please select an audio file!' : '请选择音频文件！');
                 return;
             }
             selectedAudioFile = file;
-            document.getElementById('fileName').textContent = file.name;
-            document.getElementById('selectedFile').style.display = 'block';
+            document.getElementById('audioFileName').textContent = file.name;
+            document.getElementById('audioFileDisplay').style.display = 'block';
             
-            // Create URL for playback
-            if (refAudioUrl) URL.revokeObjectURL(refAudioUrl);
-            refAudioUrl = URL.createObjectURL(file);
+            if (audioFileUrl) URL.revokeObjectURL(audioFileUrl);
+            audioFileUrl = URL.createObjectURL(file);
         }
         
-        function playRefAudio() {
-            if (refAudioUrl) {
-                const audio = new Audio(refAudioUrl);
-                audio.play();
-            }
-        }
-        
-        // Generate Story
-        let stories = JSON.parse(localStorage.getItem('leo-stories') || '[]');
-        
-        function generateStory() {
-            const storyName = document.getElementById('storyName').value.trim();
+        // Save Audio Story
+        function saveAudioStory() {
+            const name = document.getElementById('audioStoryName').value.trim();
             
             if (!selectedAudioFile) {
-                alert(currentLang === 'en' ? 'Please upload an audio file first!' : '请先上传音频文件！');
+                alert(currentLang === 'en' ? 'Please upload an audio file!' : '请上传音频文件！');
                 return;
             }
-            
-            if (!storyName) {
+            if (!name) {
                 alert(currentLang === 'en' ? 'Please enter a story name!' : '请输入故事名称！');
                 return;
             }
             
-            // Create FormData to upload
-            const formData = new FormData();
-            formData.append('file', selectedAudioFile);
-            formData.append('name', storyName);
-            
-            // For now, we'll just save the reference audio and generate a simple TTS
-            // Note: Full implementation would need a backend to process the reference audio
-            
             const story = {
                 id: Date.now(),
-                name: storyName,
-                refFile: selectedAudioFile.name,
-                refUrl: refAudioUrl,
-                generated: false,
-                genUrl: null,
+                type: 'audio',
+                name: name,
+                audioFile: selectedAudioFile.name,
+                audioUrl: audioFileUrl,
+                textContent: '',
                 createdAt: new Date().toISOString()
             };
             
             stories.unshift(story);
-            localStorage.setItem('leo-stories', JSON.stringify(stories));
-            
-            // Generate TTS for the story name
-            generateTTS(storyName, story.id);
-            
-            // Reset form
-            selectedAudioFile = null;
-            document.getElementById('fileInput').value = '';
-            document.getElementById('selectedFile').style.display = 'none';
-            document.getElementById('storyName').value = '';
-            
+            saveStories();
+            resetAudioForm();
             renderStories();
         }
         
-        function generateTTS(text, storyId) {
+        function resetAudioForm() {
+            selectedAudioFile = null;
+            audioFileUrl = null;
+            document.getElementById('audioFileInput').value = '';
+            document.getElementById('audioFileDisplay').style.display = 'none';
+            document.getElementById('audioStoryName').value = '';
+        }
+        
+        // Generate Text Story
+        function generateTextStory() {
+            const name = document.getElementById('textStoryName').value.trim();
+            const content = document.getElementById('textContent').value.trim();
+            const lang = document.getElementById('voiceLang').value;
+            
+            if (!name) {
+                alert(currentLang === 'en' ? 'Please enter a story title!' : '请输入故事标题！');
+                return;
+            }
+            if (!content) {
+                alert(currentLang === 'en' ? 'Please enter story content!' : '请输入故事内容！');
+                return;
+            }
+            
             const btn = event.target;
             btn.disabled = true;
             btn.innerHTML = '⏳ ' + (currentLang === 'en' ? 'Generating...' : '生成中...');
             
+            // First generate title, then content
+            const fullText = name + '。' + content;
+            
             fetch('http://localhost:3000/speak', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({text: text, language: 'zh'})
+                body: JSON.stringify({text: fullText, language: lang})
             })
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
-                    // Find and update story
-                    const story = stories.find(s => s.id === storyId);
-                    if (story) {
-                        story.generated = true;
-                        // Convert base64 to blob URL
-                        const byteCharacters = atob(data.audio);
-                        const byteNumbers = new Array(byteCharacters.length);
-                        for (let i = 0; i < byteCharacters.length; i++) {
-                            byteNumbers[i] = byteCharacters.charCodeAt(i);
-                        }
-                        const byteArray = new Uint8Array(byteNumbers);
-                        const blob = new Blob([byteArray], {type: 'audio/wav'});
-                        story.genUrl = URL.createObjectURL(blob);
-                        localStorage.setItem('leo-stories', JSON.stringify(stories));
+                    const byteCharacters = atob(data.audio);
+                    const byteNumbers = new Array(byteCharacters.length);
+                    for (let i = 0; i < byteCharacters.length; i++) {
+                        byteNumbers[i] = byteCharacters.charCodeAt(i);
                     }
+                    const byteArray = new Uint8Array(byteNumbers);
+                    const blob = new Blob([byteArray], {type: 'audio/wav'});
+                    const audioUrl = URL.createObjectURL(blob);
+                    
+                    const story = {
+                        id: Date.now(),
+                        type: 'tts',
+                        name: name,
+                        textContent: content,
+                        audioUrl: audioUrl,
+                        language: lang,
+                        createdAt: new Date().toISOString()
+                    };
+                    
+                    stories.unshift(story);
+                    saveStories();
+                    resetTextForm();
                     renderStories();
+                } else {
+                    throw new Error(data.error);
                 }
             })
             .catch(err => {
@@ -370,21 +514,44 @@
             })
             .finally(() => {
                 btn.disabled = false;
-                btn.innerHTML = '✨ ' + (currentLang === 'en' ? 'Generate Story Audio' : '生成故事音频');
+                btn.innerHTML = '✨ ' + (currentLang === 'en' ? 'Generate & Save Story' : '生成并保存故事');
             });
         }
         
-        function playGenAudio(storyId) {
+        function resetTextForm() {
+            document.getElementById('textStoryName').value = '';
+            document.getElementById('textContent').value = '';
+        }
+        
+        // Stories Management
+        let stories = JSON.parse(localStorage.getItem('leo-stories') || '[]');
+        
+        function saveStories() {
+            // Clean up blob URLs before saving (we'll recreate them)
+            const storiesToSave = stories.map(s => ({
+                ...s,
+                audioUrl: null,
+                genUrl: null
+            }));
+            localStorage.setItem('leo-stories', JSON.stringify(storiesToSave));
+        }
+        
+        function playStoryAudio(storyId) {
             const story = stories.find(s => s.id === storyId);
-            if (story && story.genUrl) {
-                const audio = new Audio(story.genUrl);
-                audio.play();
+            if (story) {
+                if (story.type === 'audio' && story.audioUrl) {
+                    const audio = new Audio(story.audioUrl);
+                    audio.play();
+                } else if (story.type === 'tts' && story.audioUrl) {
+                    const audio = new Audio(story.audioUrl);
+                    audio.play();
+                }
             }
         }
         
         function deleteStory(storyId) {
             stories = stories.filter(s => s.id !== storyId);
-            localStorage.setItem('leo-stories', JSON.stringify(stories));
+            saveStories();
             renderStories();
         }
         
@@ -392,52 +559,43 @@
             const container = document.getElementById('storiesContainer');
             
             if (stories.length === 0) {
-                container.innerHTML = `<p class="empty-state" data-en="No stories yet. Upload audio and generate your first story!" 
-                   data-zh="还没有故事。上传音频并生成你的第一个故事！">
-                    No stories yet. Upload audio and generate your first story!
+                container.innerHTML = `<p class="empty-state" data-en="No stories yet. Create your first story!"
+                       data-zh="还没有故事。创建你的第一个故事！">
+                    No stories yet. Create your first story!
                 </p>`;
                 return;
             }
             
             container.innerHTML = stories.map(story => `
                 <div class="story-card">
-                    <div class="story-info">
-                        <div class="story-name">${story.name}</div>
-                        <div class="story-file">📎 ${story.refFile}</div>
+                    <div class="story-header">
+                        <span class="story-name">${story.name}</span>
+                        <span class="story-type ${story.type}">
+                            ${story.type === 'audio' ? '🎵 Audio' : '✨ TTS'}
+                        </span>
                     </div>
+                    ${story.textContent ? `<div class="story-content">${story.textContent}</div>` : ''}
                     <div class="play-btns">
-                        <button class="play-btn ref" onclick="playRefAudioById(${story.id})">
-                            ▶ Ref
+                        <button class="play-btn main" onclick="playStoryAudio(${story.id})">
+                            ▶ <span data-en="Play" data-zh="播放">Play</span>
                         </button>
-                        ${story.generated ? `
-                            <button class="play-btn gen" onclick="playGenAudio(${story.id})">
-                                ▶ Play
-                            </button>
-                        ` : '<span style="color:#666;">⏳</span>'}
-                        <button class="delete-btn" onclick="deleteStory(${story.id})">🗑️</button>
+                        <button class="play-btn delete" onclick="deleteStory(${story.id})">
+                            🗑️ <span data-en="Delete" data-zh="删除">Delete</span>
+                        </button>
                     </div>
                 </div>
             `).join('');
             
-            // Update language for new elements
             document.querySelectorAll('[data-en][data-zh]').forEach(el => {
                 el.textContent = el.dataset[currentLang];
             });
         }
         
-        function playRefAudioById(storyId) {
-            const story = stories.find(s => s.id === storyId);
-            if (story && story.refUrl) {
-                const audio = new Audio(story.refUrl);
-                audio.play();
-            }
-        }
-        
-        // Load saved stories
-        renderStories();
-        
         // Load ads
         (adsbygoogle = window.adsbygoogle || []).push({});
+        
+        // Initial render
+        renderStories();
     </script>
 </body>
 </html>
