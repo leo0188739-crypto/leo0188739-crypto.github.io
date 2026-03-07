@@ -29,6 +29,10 @@
             justify-content: space-between;
             align-items: center;
         }
+        .lang-group {
+            display: flex;
+            gap: 8px;
+        }
         h1 {
             font-size: 1.5rem;
             background: linear-gradient(90deg, #00d9ff, #00ff88);
@@ -105,8 +109,10 @@
     <header>
         <div class="header-content">
             <h1>🛠️ Leo Tools</h1>
-            <button class="lang-btn" data-lang="en">EN</button>
-            <button class="lang-btn" data-lang="zh">中文</button>
+            <div class="lang-group">
+                <button class="lang-btn" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="zh">中文</button>
+            </div>
         </div>
     </header>
     
