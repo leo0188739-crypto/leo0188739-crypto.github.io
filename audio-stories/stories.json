@@ -1,5 +1,13 @@
 [
   {
+    "id": "77d04908",
+    "name": "Manual Test Story",
+    "filename": "story_77d04908.wav",
+    "type": "audio",
+    "url": "https://leo0188739-crypto.github.io/audio-stories/story_77d04908.wav",
+    "createdAt": "2026-03-07T23:00:00Z"
+  },
+  {
     "id": "de7c9302",
     "name": "Test Upload",
     "filename": "story_de7c9302.wav",
