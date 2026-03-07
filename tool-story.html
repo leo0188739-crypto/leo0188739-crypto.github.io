@@ -50,7 +50,6 @@
         h2 { margin-bottom: 10px; }
         .description { color: #aaa; margin-bottom: 30px; }
         
-        /* Tabs */
         .tabs {
             display: flex;
             gap: 10px;
@@ -73,11 +72,9 @@
             background: rgba(0,217,255,0.2);
         }
         
-        /* Form Sections */
         .form-section { display: none; }
         .form-section.active { display: block; }
         
-        /* Upload Section */
         .upload-section {
             background: rgba(255,255,255,0.05);
             border: 2px dashed rgba(255,255,255,0.2);
@@ -112,7 +109,7 @@
             display: none;
         }
         
-        .name-input {
+        .name-input, .text-input {
             width: 100%;
             padding: 15px;
             border: 1px solid rgba(255,255,255,0.2);
@@ -122,26 +119,10 @@
             font-size: 1rem;
             margin-bottom: 20px;
         }
-        .name-input::placeholder { color: #666; }
-        .name-input:focus { outline: none; border-color: #00d9ff; }
+        .name-input::placeholder, .text-input::placeholder { color: #666; }
+        .name-input:focus, .text-input:focus { outline: none; border-color: #00d9ff; }
+        .text-input { min-height: 150px; resize: vertical; }
         
-        /* Text Input Section */
-        .text-input {
-            width: 100%;
-            padding: 15px;
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 12px;
-            background: rgba(255,255,255,0.1);
-            color: #fff;
-            font-size: 1rem;
-            min-height: 150px;
-            resize: vertical;
-            margin-bottom: 20px;
-        }
-        .text-input::placeholder { color: #666; }
-        .text-input:focus { outline: none; border-color: #00d9ff; }
-        
-        /* Language Select */
         .lang-select {
             width: 100%;
             padding: 12px;
@@ -155,7 +136,6 @@
         }
         .lang-select option { background: #1a1a2e; }
         
-        /* Submit Button */
         .submit-btn {
             width: 100%;
             padding: 15px;
@@ -181,9 +161,23 @@
         .submit-btn:hover { transform: translateY(-2px); }
         .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
         
-        /* Stories List */
         .stories-list { margin-top: 40px; }
-        .stories-title { margin-bottom: 15px; color: #aaa; }
+        .stories-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .sync-btn {
+            padding: 8px 15px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        .sync-btn:hover { background: rgba(255,255,255,0.2); }
         
         .story-card {
             background: rgba(255,255,255,0.05);
@@ -215,9 +209,14 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
-        .play-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+        
+        .play-controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
         .play-btn {
-            padding: 10px 20px;
+            padding: 10px 18px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
@@ -231,15 +230,31 @@
             background: linear-gradient(135deg, #00d9ff 0%, #00aaff 100%);
             color: #1a1a2e;
         }
+        .play-btn.pause {
+            background: rgba(241,196,15,0.3);
+            color: #f1c40f;
+            border: 1px solid rgba(241,196,15,0.5);
+        }
+        .play-btn.stop {
+            background: rgba(255,71,87,0.3);
+            color: #ff4757;
+            border: 1px solid rgba(255,71,87,0.5);
+        }
         .play-btn.delete {
             background: rgba(255,71,87,0.2);
             color: #ff4757;
+            margin-left: auto;
         }
         .play-btn:hover { transform: translateY(-2px); }
         
         .empty-state { text-align: center; color: #666; padding: 40px; }
-        
         .ad-section { margin-top: 40px; text-align: center; }
+        
+        .loading {
+            text-align: center;
+            color: #00d9ff;
+            padding: 20px;
+        }
     </style>
 </head>
 <body>
@@ -256,11 +271,10 @@
     <div class="container">
         <h2 data-en="📖 Story Telling" data-zh="📖 讲故事">📖 Story Telling</h2>
         
-        <p class="description" data-en="Save audio files as stories, or generate TTS audio from text."
-           data-zh="将音频文件保存为故事，或从文字生成 TTS 音频。">
+        <p class="description" data-en="Upload audio files or generate from text. Stories sync across all devices via GitHub."
+           data-zh="上传音频文件或从文字生成。故事通过 GitHub 在所有设备间同步。">
         </p>
         
-        <!-- Tabs -->
         <div class="tabs">
             <button class="tab-btn active" data-tab="audio" onclick="switchTab('audio')">
                 🎵 <span data-en="Upload Audio" data-zh="上传音频">Upload Audio</span>
@@ -270,16 +284,12 @@
             </button>
         </div>
         
-        <!-- Tab 1: Upload Audio -->
         <div class="form-section active" id="audioSection">
             <div class="upload-section" id="uploadSection">
                 <input type="file" id="audioFileInput" class="file-input" accept="audio/*">
                 <button class="upload-btn" onclick="document.getElementById('audioFileInput').click()">
                     🎤 <span data-en="Select Audio File" data-zh="选择音频文件">Select Audio File</span>
                 </button>
-                <p style="margin-top: 15px; color: #888;" data-en="Or drag and drop here" data-zh="或拖拽到此处">
-                    Or drag and drop here
-                </p>
             </div>
             
             <div class="selected-file" id="audioFileDisplay">
@@ -292,11 +302,10 @@
                    data-zh-placeholder="输入故事名称...">
             
             <button class="submit-btn upload-style" onclick="saveAudioStory()">
-                💾 <span data-en="Save Story" data-zh="保存故事">Save Story</span>
+                ☁️ <span data-en="Upload to Cloud" data-zh="上传到云端">Upload to Cloud</span>
             </button>
         </div>
         
-        <!-- Tab 2: Generate from Text -->
         <div class="form-section" id="textSection">
             <input type="text" id="textStoryName" class="name-input" 
                    placeholder="Story title..." 
@@ -317,18 +326,19 @@
             </select>
             
             <button class="submit-btn gen-style" onclick="generateTextStory()">
-                ✨ <span data-en="Generate & Save Story" data-zh="生成并保存故事">Generate & Save Story</span>
+                ✨ <span data-en="Generate & Upload" data-zh="生成并上传">Generate & Upload</span>
             </button>
         </div>
         
-        <!-- Stories List -->
         <div class="stories-list">
-            <h3 class="stories-title" data-en="My Stories" data-zh="我的故事">My Stories</h3>
+            <div class="stories-header">
+                <h3 class="stories-title" data-en="My Stories (Synced)" data-zh="我的故事 (已同步)">My Stories (Synced)</h3>
+                <button class="sync-btn" onclick="loadStories()">
+                    🔄 <span data-en="Sync" data-zh="同步">Sync</span>
+                </button>
+            </div>
             <div id="storiesContainer">
-                <p class="empty-state" data-en="No stories yet. Create your first story!"
-                   data-zh="还没有故事。创建你的第一个故事！">
-                    No stories yet. Create your first story!
-                </p>
+                <p class="loading">Loading stories...</p>
             </div>
         </div>
         
@@ -343,6 +353,10 @@
     </div>
     
     <script>
+        // Current playing audio
+        let currentAudio = null;
+        let currentStoryId = null;
+        
         // Language
         const langBtns = document.querySelectorAll('.lang-btn');
         let currentLang = localStorage.getItem('leo-tools-lang') || 'en';
@@ -381,24 +395,8 @@
         let audioFileUrl = null;
         
         const audioFileInput = document.getElementById('audioFileInput');
-        const uploadSection = document.getElementById('uploadSection');
         
         audioFileInput.addEventListener('change', handleAudioFile);
-        
-        // Drag and drop
-        uploadSection.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            uploadSection.style.borderColor = '#00d9ff';
-        });
-        uploadSection.addEventListener('dragleave', () => {
-            uploadSection.style.borderColor = 'rgba(255,255,255,0.2)';
-        });
-        uploadSection.addEventListener('drop', (e) => {
-            e.preventDefault();
-            uploadSection.style.borderColor = 'rgba(255,255,255,0.2)';
-            const files = e.dataTransfer.files;
-            if (files.length > 0) handleAudioFile({target: {files: files}});
-        });
         
         function handleAudioFile(e) {
             const file = e.target.files[0];
@@ -409,13 +407,12 @@
             selectedAudioFile = file;
             document.getElementById('audioFileName').textContent = file.name;
             document.getElementById('audioFileDisplay').style.display = 'block';
-            
             if (audioFileUrl) URL.revokeObjectURL(audioFileUrl);
             audioFileUrl = URL.createObjectURL(file);
         }
         
-        // Save Audio Story
-        function saveAudioStory() {
+        // Save Audio Story to GitHub
+        async function saveAudioStory() {
             const name = document.getElementById('audioStoryName').value.trim();
             
             if (!selectedAudioFile) {
@@ -427,20 +424,36 @@
                 return;
             }
             
-            const story = {
-                id: Date.now(),
-                type: 'audio',
-                name: name,
-                audioFile: selectedAudioFile.name,
-                audioUrl: audioFileUrl,
-                textContent: '',
-                createdAt: new Date().toISOString()
+            // Convert audio to base64
+            const reader = new FileReader();
+            reader.onload = async function() {
+                const base64 = reader.result.split(',')[1];
+                
+                try {
+                    const response = await fetch('http://localhost:3000/upload-story', {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({
+                            name: name,
+                            audio: base64,
+                            type: 'audio'
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    if (data.success) {
+                        alert(currentLang === 'en' ? 'Story uploaded to cloud!' : '故事已上传到云端！');
+                        resetAudioForm();
+                        loadStories();
+                    } else {
+                        throw new Error(data.error);
+                    }
+                } catch (err) {
+                    console.error(err);
+                    alert(currentLang === 'en' ? 'Upload failed!' : '上传失败！');
+                }
             };
-            
-            stories.unshift(story);
-            saveStories();
-            resetAudioForm();
-            renderStories();
+            reader.readAsDataURL(selectedAudioFile);
         }
         
         function resetAudioForm() {
@@ -452,7 +465,7 @@
         }
         
         // Generate Text Story
-        function generateTextStory() {
+        async function generateTextStory() {
             const name = document.getElementById('textStoryName').value.trim();
             const content = document.getElementById('textContent').value.trim();
             const lang = document.getElementById('voiceLang').value;
@@ -468,54 +481,50 @@
             
             const btn = event.target;
             btn.disabled = true;
-            btn.innerHTML = '⏳ ' + (currentLang === 'en' ? 'Generating...' : '生成中...');
+            btn.innerHTML = '⏳ ' + (currentLang === 'en' ? 'Generating & Uploading...' : '生成并上传中...');
             
-            // First generate title, then content
-            const fullText = name + '。' + content;
-            
-            fetch('http://localhost:3000/speak', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({text: fullText, language: lang})
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (data.success) {
-                    const byteCharacters = atob(data.audio);
-                    const byteNumbers = new Array(byteCharacters.length);
-                    for (let i = 0; i < byteCharacters.length; i++) {
-                        byteNumbers[i] = byteCharacters.charCodeAt(i);
+            try {
+                // Generate TTS
+                const fullText = name + '。' + content;
+                const ttsRes = await fetch('http://localhost:3000/speak', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({text: fullText, language: lang})
+                });
+                
+                const ttsData = await ttsRes.json();
+                
+                if (ttsData.success) {
+                    // Upload to GitHub
+                    const uploadRes = await fetch('http://localhost:3000/upload-story', {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({
+                            name: name,
+                            audio: ttsData.audio,
+                            type: 'tts'
+                        })
+                    });
+                    
+                    const uploadData = await uploadRes.json();
+                    
+                    if (uploadData.success) {
+                        alert(currentLang === 'en' ? 'Story generated and uploaded!' : '故事生成并上传成功！');
+                        resetTextForm();
+                        loadStories();
+                    } else {
+                        throw new Error(uploadData.error);
                     }
-                    const byteArray = new Uint8Array(byteNumbers);
-                    const blob = new Blob([byteArray], {type: 'audio/wav'});
-                    const audioUrl = URL.createObjectURL(blob);
-                    
-                    const story = {
-                        id: Date.now(),
-                        type: 'tts',
-                        name: name,
-                        textContent: content,
-                        audioUrl: audioUrl,
-                        language: lang,
-                        createdAt: new Date().toISOString()
-                    };
-                    
-                    stories.unshift(story);
-                    saveStories();
-                    resetTextForm();
-                    renderStories();
                 } else {
-                    throw new Error(data.error);
+                    throw new Error(ttsData.error);
                 }
-            })
-            .catch(err => {
+            } catch (err) {
                 console.error(err);
-                alert(currentLang === 'en' ? 'Generation failed. Make sure TTS server is running!' : '生成失败，请确保 TTS 服务器正在运行！');
-            })
-            .finally(() => {
+                alert(currentLang === 'en' ? 'Generation failed!' : '生成失败！');
+            } finally {
                 btn.disabled = false;
-                btn.innerHTML = '✨ ' + (currentLang === 'en' ? 'Generate & Save Story' : '生成并保存故事');
-            });
+                btn.innerHTML = '✨ ' + (currentLang === 'en' ? 'Generate & Upload' : '生成并上传');
+            }
         }
         
         function resetTextForm() {
@@ -523,42 +532,26 @@
             document.getElementById('textContent').value = '';
         }
         
-        // Stories Management
-        let stories = JSON.parse(localStorage.getItem('leo-stories') || '[]');
-        
-        function saveStories() {
-            // Clean up blob URLs before saving (we'll recreate them)
-            const storiesToSave = stories.map(s => ({
-                ...s,
-                audioUrl: null,
-                genUrl: null
-            }));
-            localStorage.setItem('leo-stories', JSON.stringify(storiesToSave));
-        }
-        
-        function playStoryAudio(storyId) {
-            const story = stories.find(s => s.id === storyId);
-            if (story) {
-                if (story.type === 'audio' && story.audioUrl) {
-                    const audio = new Audio(story.audioUrl);
-                    audio.play();
-                } else if (story.type === 'tts' && story.audioUrl) {
-                    const audio = new Audio(story.audioUrl);
-                    audio.play();
-                }
+        // Load Stories from GitHub
+        async function loadStories() {
+            const container = document.getElementById('storiesContainer');
+            container.innerHTML = '<p class="loading">🔄 Syncing...</p>';
+            
+            try {
+                const response = await fetch('https://leo0188739-crypto.github.io/audio-stories/stories.json');
+                const stories = await response.json();
+                renderStories(stories);
+            } catch (err) {
+                console.error(err);
+                container.innerHTML = `<p class="empty-state" data-en="Failed to load stories"
+                       data-zh="加载故事失败">Failed to load stories</p>`;
             }
         }
         
-        function deleteStory(storyId) {
-            stories = stories.filter(s => s.id !== storyId);
-            saveStories();
-            renderStories();
-        }
-        
-        function renderStories() {
+        function renderStories(stories) {
             const container = document.getElementById('storiesContainer');
             
-            if (stories.length === 0) {
+            if (!stories || stories.length === 0) {
                 container.innerHTML = `<p class="empty-state" data-en="No stories yet. Create your first story!"
                        data-zh="还没有故事。创建你的第一个故事！">
                     No stories yet. Create your first story!
@@ -574,13 +567,15 @@
                             ${story.type === 'audio' ? '🎵 Audio' : '✨ TTS'}
                         </span>
                     </div>
-                    ${story.textContent ? `<div class="story-content">${story.textContent}</div>` : ''}
-                    <div class="play-btns">
-                        <button class="play-btn main" onclick="playStoryAudio(${story.id})">
+                    <div class="play-controls" id="controls-${story.id}">
+                        <button class="play-btn main" onclick="playStory('${story.id}', '${story.url}')">
                             ▶ <span data-en="Play" data-zh="播放">Play</span>
                         </button>
-                        <button class="play-btn delete" onclick="deleteStory(${story.id})">
-                            🗑️ <span data-en="Delete" data-zh="删除">Delete</span>
+                        <button class="play-btn pause" onclick="pauseStory()">
+                            ⏸ <span data-en="Pause" data-zh="暂停">Pause</span>
+                        </button>
+                        <button class="play-btn stop" onclick="stopStory()">
+                            ⏹ <span data-en="Stop" data-zh="停止">Stop</span>
                         </button>
                     </div>
                 </div>
@@ -591,11 +586,37 @@
             });
         }
         
+        function playStory(storyId, url) {
+            // Stop current if playing
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio = null;
+            }
+            
+            currentStoryId = storyId;
+            currentAudio = new Audio(url);
+            currentAudio.play();
+        }
+        
+        function pauseStory() {
+            if (currentAudio) {
+                currentAudio.pause();
+            }
+        }
+        
+        function stopStory() {
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+                currentAudio = null;
+            }
+        }
+        
         // Load ads
         (adsbygoogle = window.adsbygoogle || []).push({});
         
-        // Initial render
-        renderStories();
+        // Initial load
+        loadStories();
     </script>
 </body>
 </html>
