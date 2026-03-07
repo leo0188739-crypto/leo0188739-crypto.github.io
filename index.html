@@ -57,7 +57,6 @@
             padding: 20px;
         }
         
-        /* Category Section */
         .category {
             margin-bottom: 40px;
         }
@@ -72,6 +71,8 @@
         }
         .category-title.tools { border-color: #00d9ff; color: #00d9ff; }
         .category-title.games { border-color: #ff6b6b; color: #ff6b6b; }
+        .category-title.ai { border-color: #9b59b6; color: #9b59b6; }
+        .category-title.dev { border-color: #2ecc71; color: #2ecc71; }
         .category-title.other { border-color: #ffd700; color: #ffd700; }
         
         .tools-grid {
@@ -93,11 +94,12 @@
         }
         .tool-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,217,255,0.2);
         }
-        .tool-card:hover.games:hover {
-            box-shadow: 0 10px 30px rgba(255,107,107,0.2);
-        }
+        .tool-card:hover { box-shadow: 0 10px 30px rgba(0,217,255,0.2); }
+        .tool-card.games:hover { box-shadow: 0 10px 30px rgba(255,107,107,0.2); }
+        .tool-card.ai:hover { box-shadow: 0 10px 30px rgba(155,89,182,0.2); }
+        .tool-card.dev:hover { box-shadow: 0 10px 30px rgba(46,204,113,0.2); }
+        
         .tool-icon {
             font-size: 2.5rem;
             margin-bottom: 15px;
@@ -108,6 +110,8 @@
             color: #00d9ff;
         }
         .tool-card.games .tool-title { color: #ff6b6b; }
+        .tool-card.ai .tool-title { color: #9b59b6; }
+        .tool-card.dev .tool-title { color: #2ecc71; }
         .tool-card.other .tool-title { color: #ffd700; }
         .tool-desc {
             color: #aaa;
@@ -141,7 +145,6 @@
     </header>
     
     <div class="container">
-        <!-- AdSense -->
         <div class="ad-section">
             <ins class="adsbygoogle"
                  style="display:block"
@@ -151,59 +154,19 @@
                  data-full-width-responsive="true"></ins>
         </div>
         
-        <!-- Category 1: Tools -->
+        <!-- Category 1: AI Tools -->
         <div class="category">
-            <h2 class="category-title tools" data-en="🛠️ Tools" data-zh="🛠️ 工具">🛠️ Tools</h2>
+            <h2 class="category-title ai" data-en="🤖 AI Tools" data-zh="🤖 AI 工具">🤖 AI Tools</h2>
             <div class="tools-grid">
-                <a href="tool-json.html" class="tool-card">
-                    <div class="tool-icon">📄</div>
-                    <div class="tool-title" data-en="JSON Formatter" data-zh="JSON 格式化">JSON Formatter</div>
-                    <div class="tool-desc" data-en="Format, compress, and validate JSON" data-zh="格式化、压缩、校验 JSON">Format, compress, and validate JSON</div>
-                </a>
-                <a href="tool-base64.html" class="tool-card">
-                    <div class="tool-icon">🔐</div>
-                    <div class="tool-title" data-en="Base64 Encoder" data-zh="Base64 编码">Base64 Encoder</div>
-                    <div class="tool-desc" data-en="Encode and decode Base64" data-zh="Base64 编码/解码">Encode and decode Base64</div>
-                </a>
-                <a href="tool-timestamp.html" class="tool-card">
-                    <div class="tool-icon">⏰</div>
-                    <div class="tool-title" data-en="Timestamp Converter" data-zh="时间戳转换">Timestamp Converter</div>
-                    <div class="tool-desc" data-en="Convert Unix timestamp and date" data-zh="Unix 时间戳与日期互转">Convert Unix timestamp and date</div>
-                </a>
-                <a href="tool-qrcode.html" class="tool-card">
-                    <div class="tool-icon">📱</div>
-                    <div class="tool-title" data-en="QR Code Generator" data-zh="二维码生成">QR Code Generator</div>
-                    <div class="tool-desc" data-en="Generate QR codes from text/URLs" data-zh="输入文字或链接生成二维码">Generate QR codes</div>
-                </a>
-                <a href="tool-color.html" class="tool-card">
-                    <div class="tool-icon">🎨</div>
-                    <div class="tool-title" data-en="Color Converter" data-zh="颜色转换">Color Converter</div>
-                    <div class="tool-desc" data-en="Convert HEX, RGB, HSL colors" data-zh="HEX、RGB、HSL 颜色互转">Convert HEX, RGB, HSL</div>
-                </a>
-                <a href="tool-hash.html" class="tool-card">
-                    <div class="tool-icon">🔑</div>
-                    <div class="tool-title" data-en="Hash Generator" data-zh="Hash 生成">Hash Generator</div>
-                    <div class="tool-desc" data-en="Generate MD5, SHA1, SHA256" data-zh="MD5、SHA1、SHA256 加密">Generate MD5, SHA1, SHA256</div>
-                </a>
-                <a href="tool-finnish.html" class="tool-card">
+                <a href="tool-finnish.html" class="tool-card ai">
                     <div class="tool-icon">🇫🇮</div>
                     <div class="tool-title" data-en="Finnish Word Explorer" data-zh="芬兰语单词详解">Finnish Word Explorer</div>
-                    <div class="tool-desc" data-en="AI-powered Finnish word analysis" data-zh="AI 分析芬兰语单词（原型、含义、词源）">AI Finnish word analysis</div>
+                    <div class="tool-desc" data-en="AI-powered Finnish word analysis" data-zh="AI 分析芬兰语单词">AI Finnish word analysis</div>
                 </a>
-                <a href="voice-translator.html" class="tool-card">
+                <a href="voice-translator.html" class="tool-card ai">
                     <div class="tool-icon">🎙️</div>
                     <div class="tool-title" data-en="Voice Translator" data-zh="语音翻译">Voice Translator</div>
-                    <div class="tool-desc" data-en="AI voice translator with speech recognition" data-zh="AI 语音翻译，支持语音识别">AI voice translation</div>
-                </a>
-                <a href="photo-enhancer.html" class="tool-card">
-                    <div class="tool-icon">🖼️</div>
-                    <div class="tool-title" data-en="Background Remover" data-zh="背景移除">Background Remover</div>
-                    <div class="tool-desc" data-en="Remove image background" data-zh="移除图片背景">Remove image background</div>
-                </a>
-                <a href="document-converter.html" class="tool-card">
-                    <div class="tool-icon">📑</div>
-                    <div class="tool-title" data-en="Document Converter" data-zh="文档转换器">Document Converter</div>
-                    <div class="tool-desc" data-en="PDF, Word, Excel converter" data-zh="PDF、Word、Excel 转换">PDF, Word, Excel converter</div>
+                    <div class="tool-desc" data-en="AI voice translation" data-zh="AI 语音翻译">AI voice translation</div>
                 </a>
             </div>
         </div>
@@ -240,10 +203,20 @@
             </div>
         </div>
         
-        <!-- Category 3: Other -->
+        <!-- Category 3: Other Tools -->
         <div class="category">
-            <h2 class="category-title other" data-en="🔧 Other" data-zh="🔧 其他">🔧 Other</h2>
+            <h2 class="category-title other" data-en="🔧 Other Tools" data-zh="🔧 其他工具">🔧 Other Tools</h2>
             <div class="tools-grid">
+                <a href="photo-enhancer.html" class="tool-card other">
+                    <div class="tool-icon">🖼️</div>
+                    <div class="tool-title" data-en="Background Remover" data-zh="背景移除">Background Remover</div>
+                    <div class="tool-desc" data-en="Remove image background" data-zh="移除图片背景">Remove image background</div>
+                </a>
+                <a href="document-converter.html" class="tool-card other">
+                    <div class="tool-icon">📑</div>
+                    <div class="tool-title" data-en="Document Converter" data-zh="文档转换器">Document Converter</div>
+                    <div class="tool-desc" data-en="PDF, Word, Excel converter" data-zh="PDF、Word、Excel 转换">PDF, Word, Excel converter</div>
+                </a>
                 <a href="agent-monitor.html" class="tool-card other">
                     <div class="tool-icon">🤖</div>
                     <div class="tool-title" data-en="Agent Monitor" data-zh="AI 代理监控">Agent Monitor</div>
@@ -252,7 +225,43 @@
             </div>
         </div>
         
-        <!-- AdSense -->
+        <!-- Category 4: Programming Tools -->
+        <div class="category">
+            <h2 class="category-title dev" data-en="💻 Programming Tools" data-zh="💻 编程工具">💻 Programming Tools</h2>
+            <div class="tools-grid">
+                <a href="tool-json.html" class="tool-card dev">
+                    <div class="tool-icon">📄</div>
+                    <div class="tool-title" data-en="JSON Formatter" data-zh="JSON 格式化">JSON Formatter</div>
+                    <div class="tool-desc" data-en="Format, compress, and validate JSON" data-zh="格式化、压缩、校验 JSON">Format, compress, validate JSON</div>
+                </a>
+                <a href="tool-base64.html" class="tool-card dev">
+                    <div class="tool-icon">🔐</div>
+                    <div class="tool-title" data-en="Base64 Encoder" data-zh="Base64 编码">Base64 Encoder</div>
+                    <div class="tool-desc" data-en="Encode and decode Base64" data-zh="Base64 编码/解码">Encode and decode Base64</div>
+                </a>
+                <a href="tool-timestamp.html" class="tool-card dev">
+                    <div class="tool-icon">⏰</div>
+                    <div class="tool-title" data-en="Timestamp Converter" data-zh="时间戳转换">Timestamp Converter</div>
+                    <div class="tool-desc" data-en="Convert Unix timestamp and date" data-zh="Unix 时间戳与日期互转">Convert timestamp and date</div>
+                </a>
+                <a href="tool-qrcode.html" class="tool-card dev">
+                    <div class="tool-icon">📱</div>
+                    <div class="tool-title" data-en="QR Code Generator" data-zh="二维码生成">QR Code Generator</div>
+                    <div class="tool-desc" data-en="Generate QR codes from text/URLs" data-zh="输入文字或链接生成二维码">Generate QR codes</div>
+                </a>
+                <a href="tool-color.html" class="tool-card dev">
+                    <div class="tool-icon">🎨</div>
+                    <div class="tool-title" data-en="Color Converter" data-zh="颜色转换">Color Converter</div>
+                    <div class="tool-desc" data-en="Convert HEX, RGB, HSL colors" data-zh="HEX、RGB、HSL 颜色互转">Convert HEX, RGB, HSL</div>
+                </a>
+                <a href="tool-hash.html" class="tool-card dev">
+                    <div class="tool-icon">🔑</div>
+                    <div class="tool-title" data-en="Hash Generator" data-zh="Hash 生成">Hash Generator</div>
+                    <div class="tool-desc" data-en="Generate MD5, SHA1, SHA256" data-zh="MD5、SHA1、SHA256 加密">Generate MD5, SHA1, SHA256</div>
+                </a>
+            </div>
+        </div>
+        
         <div class="ad-section">
             <ins class="adsbygoogle"
                  style="display:block"
@@ -268,30 +277,22 @@
     </footer>
     
     <script>
-        // Language Switching
         const langBtns = document.querySelectorAll('.lang-btn');
-        
         langBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 const lang = btn.dataset.lang;
-                
                 langBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                
                 document.querySelectorAll('[data-en][data-zh]').forEach(el => {
                     el.textContent = el.dataset[lang];
                 });
-                
                 document.documentElement.lang = lang;
                 localStorage.setItem('leo-tools-lang', lang);
             });
         });
-        
-        // Load saved language preference
         const savedLang = localStorage.getItem('leo-tools-lang') || 'en';
         document.querySelector(`.lang-btn[data-lang="${savedLang}"]`).click();
     </script>
-    
     <script>
         (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
