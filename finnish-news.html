@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>芬兰每日新闻 - Finnish News Learning</title>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1113273813232585"
+     crossorigin="anonymous"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #fff;
+        }
+        header {
+            background: rgba(0,0,0,0.3);
+            padding: 20px;
+            backdrop-filter: blur(10px);
+        }
+        .header-content {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        h1 { font-size: 1.5rem; }
+        h1 a { color: #00d9ff; text-decoration: none; }
+        .back-link { color: #aaa; text-decoration: none; }
+        .back-link:hover { color: #00d9ff; }
+        
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        /* 日期导航 */
+        .date-nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .date-btn {
+            padding: 10px 20px;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 25px;
+            background: rgba(255,255,255,0.05);
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        .date-btn:hover, .date-btn.active {
+            border-color: #00ff88;
+            background: rgba(0,255,136,0.2);
+        }
+        
+        /* 新闻内容 */
+        .news-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .news-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .news-date {
+            color: #00ff88;
+            font-size: 0.9rem;
+        }
+        .news-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+        .btn-original {
+            background: #00d9ff;
+            color: #1a1a2e;
+        }
+        .btn-original:hover {
+            background: #00b8d4;
+            transform: translateY(-2px);
+        }
+        .btn-audio {
+            background: #ff6f00;
+            color: white;
+        }
+        .btn-audio:hover {
+            background: #e65100;
+            transform: translateY(-2px);
+        }
+        
+        /* 标题区域 */
+        .news-title {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #00d9ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .news-topic {
+            color: #aaa;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        /* 摘要 */
+        .summary {
+            background: rgba(0,217,255,0.1);
+            border-left: 4px solid #00d9ff;
+            padding: 20px;
+            border-radius: 0 15px 15px 0;
+            margin-bottom: 30px;
+        }
+        .summary h3 {
+            color: #00d9ff;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        /* 学习内容 */
+        .learning-section {
+            margin-top: 30px;
+        }
+        
+        .intro-box {
+            background: linear-gradient(135deg, rgba(155,89,182,0.2) 0%, rgba(52,152,219,0.2) 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(155,89,182,0.3);
+        }
+        .intro-box p {
+            line-height: 1.8;
+            color: #ddd;
+        }
+        
+        /* 翻译部分 */
+        .translation {
+            background: rgba(255,255,255,0.03);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        .translation h3 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .translation-content {
+            line-height: 2;
+        }
+        .translation-content h4 {
+            color: #aaa;
+            font-weight: normal;
+            margin: 15px 0 10px;
+            font-size: 1rem;
+        }
+        
+        /* 词汇详解 */
+        .vocab-section {
+            margin-bottom: 30px;
+        }
+        .vocab-section h3 {
+            color: #00ff88;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .vocab-card {
+            background: rgba(255,255,255,0.05);
+            border-left: 4px solid #00d9ff;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 15px 15px 0;
+        }
+        
+        .vocab-word {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: #00d9ff;
+            margin-bottom: 8px;
+        }
+        
+        .vocab-pronunciation {
+            color: #888;
+            font-size: 0.9em;
+            margin-bottom: 12px;
+            font-family: monospace;
+        }
+        
+        .vocab-meaning {
+            font-weight: 600;
+            color: #00ff88;
+            margin-bottom: 15px;
+        }
+        
+        .vocab-detail {
+            color: #ccc;
+            line-height: 1.8;
+        }
+        
+        .vocab-detail ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        
+        .vocab-detail li {
+            margin: 8px 0;
+        }
+        
+        .vocab-example {
+            background: rgba(0,217,255,0.1);
+            padding: 12px 16px;
+            border-radius: 10px;
+            margin-top: 15px;
+            font-style: italic;
+        }
+        
+        .vocab-example .fi {
+            color: #fff;
+            margin-bottom: 5px;
+        }
+        
+        .vocab-example .zh {
+            color: #aaa;
+            font-size: 0.9em;
+            font-style: normal;
+        }
+        
+        .vocab-root {
+            background: rgba(255,159,0,0.1);
+            padding: 12px 16px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+        
+        /* 语法部分 */
+        .grammar-section {
+            margin-bottom: 30px;
+        }
+        .grammar-section h3 {
+            color: #ff6b6b;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .grammar-card {
+            background: rgba(255,107,107,0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        
+        .grammar-card h4 {
+            color: #ff6b6b;
+            margin-bottom: 15px;
+        }
+        
+        .grammar-card .fi {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            font-size: 1.05em;
+            line-height: 1.6;
+        }
+        
+        .grammar-card .analysis {
+            color: #ccc;
+            line-height: 1.8;
+        }
+        
+        /* 总结 */
+        .summary-box {
+            background: linear-gradient(135deg, rgba(0,255,136,0.1) 0%, rgba(0,217,255,0.1) 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+            border: 1px solid rgba(0,255,136,0.3);
+        }
+        .summary-box h3 {
+            color: #00ff88;
+            margin-bottom: 15px;
+        }
+        .summary-box p {
+            color: #ccc;
+            line-height: 1.8;
+        }
+        .summary-box ul {
+            margin: 15px 0;
+            padding-left: 20px;
+            color: #ccc;
+        }
+        .summary-box li {
+            margin: 10px 0;
+        }
+        
+        /* 页脚 */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1><a href="index.html">← Leo Tools</a></h1>
+            <a href="index.html" class="back-link">← 返回工具列表</a>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="date-nav">
+            <a href="#" class="date-btn active">2026-03-08</a>
+            <a href="#" class="date-btn">2026-03-07</a>
+            <a href="#" class="date-btn">2026-03-06</a>
+            <a href="#" class="date-btn">2026-03-05</a>
+        </div>
+        
+        <div class="news-card">
+            <div class="news-header">
+                <span class="news-date">📅 2026年3月7日 · 周六</span>
+                <div class="news-actions">
+                    <a href="https://yle.fi/selkouutiset" target="_blank" class="action-btn btn-original">
+                        🔗 查看原文
+                    </a>
+                    <a href="https://arenan.yle.fi/radio-ohjelmat/selkouutiset" target="_blank" class="action-btn btn-audio">
+                        🎧 播放音频
+                    </a>
+                </div>
+            </div>
+            
+            <h2 class="news-title">Asuntolainojen takaisinmaksuajan pidentyminen</h2>
+            <p class="news-topic">📌 本周主题：芬兰房贷还款期限延长</p>
+            
+            <div class="summary">
+                <h3>📋 新闻摘要</h3>
+                <p>芬兰将于4月实施新法律，允许最长35年的房贷还款期（此前通常最长25-30年）。这意味着每月还款额降低，但也意味着支付更多利息。</p>
+            </div>
+            
+            <!-- 学习内容 -->
+            <div class="learning-section">
+                <div class="intro-box">
+                    <p>这是一篇非常实用的<strong>经济与民生新闻</strong>！主题是关于芬兰房贷（Asuntolaina）政策的重大变化。</p>
+                    <p>在芬兰生活，买房和贷款是避不开的话题。这段文字里出现了一个"史诗级"的芬兰语复合词，以及几个极其常用的法律/政策表达。</p>
+                    <p>我们老规矩，先看完整的中文翻译，然后逐句拆解里面的语法魔法和造词逻辑！</p>
+                </div>
+                
+                <!-- 完整翻译 -->
+                <div class="translation">
+                    <h3>📝 完整中文翻译</h3>
+                    <div class="translation-content">
+                        <h4>本周主题</h4>
+                        <p>本周的主题是房贷还款期的延长。</p>
+                        <p>在芬兰，现在可以获得比以前更长的房贷了。</p>
+                        <p>四月份将生效一项法律，允许长达35年的房贷。</p>
+                        <p>以前，贷款的还款期通常最多为25或30年。</p>
+                        <p>我们现在就来讲讲，这一改变意味着什么，以及它可能会产生什么样的影响。</p>
+                    </div>
+                </div>
+                
+                <!-- 词汇详解 -->
+                <div class="vocab-section">
+                    <h3>🧱 核心词汇与神仙语法拆解</h3>
+                    
+                    <div class="vocab-card">
+                        <div class="vocab-word">Tämän viikon aihe on asuntolainojen takaisinmaksuajan pidentyminen.</div>
+                        <div class="vocab-pronunciation">[ˈtæːmen ˈvikon ˈɑihe ɔn ˈɑsuntolɑinojen ˈtɑkɑismɑksuɑjɑn ˈpidentyminen]</div>
+                        <div class="vocab-meaning">🏷️ 本周的主题是房贷还款期的延长。</div>
+                        <div class="vocab-detail">
+                            <p><strong>🔍 史诗级复合词大解剖：</strong></p>
+                            <ul>
+                                <li><strong>asuntolainojen</strong> (房贷的)：<em>asunto</em> (住宅/公寓) + <em>laina</em> (贷款)。这里用了复数属格 <em>-jen</em>，表示"房贷们的"。</li>
+                                <li><strong>takaisinmaksuajan</strong> (还款期的)：🌟 超长复合词！</li>
+                            </ul>
+                            <div class="vocab-root">
+                                <strong>📖 词根拆分：</strong><br>
+                                • <em>takaisin</em> = 返回 / 回去<br>
+                                • <em>maksu</em> = 支付 (动词 <em>maksaa</em> 的名词形式)<br>
+                                • <em>aika</em> = 时间<br>
+                                • 连起来就是：回去-支付-时间 = <strong>"还款期"</strong>。最后加上属格 <em>-n</em>，表示"还款期的"。
+                            </div>
+                            <div class="vocab-root">
+                                <strong>📖 pidentyminen (延长)</strong>：动名词。词根是形容词 <em>pitkä</em> (长的) → 变成比较级词根 <em>pidem-</em> → 变成动词 <em>pidentyä</em> (变长) → 变成名词 <em>pidentyminen</em> (变长的过程/延长)。
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="vocab-card">
+                        <div class="vocab-word">Suomessa voi saada pidempiä asuntolainoja kuin ennen.</div>
+                        <div class="vocab-meaning">🏷️ 在芬兰，可以得到比以前更长的房贷。</div>
+                        <div class="vocab-detail">
+                            <p><strong>🔍 比较级句型：</strong></p>
+                            <ul>
+                                <li><em>pidempiä ... kuin ennen</em> (比以前更长的...)：<em>pitkä</em> (长) 的比较级 <em>pidempi</em>，这里变成了复数部分格 <em>pidempiä</em>。</li>
+                                <li><strong>kuin ennen</strong> (比以前) 是一个可以直接背下来的高频固定搭配！</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="vocab-card">
+                        <div class="vocab-word">Huhtikuussa tulee voimaan laki, joka sallii jopa 35 vuoden asuntolainat.</div>
+                        <div class="vocab-meaning">🏷️ 四月份将生效一项法律，该法律允许长达35年的房贷。</div>
+                        <div class="vocab-detail">
+                            <p><strong>🔍 政策新闻最高频短语：生效</strong></p>
+                            <ul>
+                                <li><em>tulee voimaan</em> (生效)：🌟 必须拿下的固定搭配！</li>
+                            </ul>
+                            <div class="vocab-root">
+                                <em>tulla</em> (来) + <em>voima</em> (力量) 的入格 <em>-an</em>。字面意思是"进入力量之中"，在法律和规则里就是<strong>"生效"</strong>。
+                            </div>
+                            <ul>
+                                <li><em>sallii</em> (允许)：动词 <em>sallia</em> 的第三人称单数。</li>
+                                <li><em>jopa</em> (甚至/高达)：用来强调数字之大。</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="vocab-card">
+                        <div class="vocab-word">Aiemmin lainan maksuaika on ollut yleensä korkeintaan 25 tai 30 vuotta.</div>
+                        <div class="vocab-meaning">🏷️ 以前，贷款的还款期通常最多是25或30年。</div>
+                        <div class="vocab-detail">
+                            <p><strong>🔍 描述上限的副词：</strong></p>
+                            <ul>
+                                <li><em>aiemmin</em> (以前)：副词，<em>aika</em> (时间/早) 的比较级变体。</li>
+                                <li><em>korkeintaan</em> (最多/上限)：🌟 极其实用的词！</li>
+                            </ul>
+                            <div class="vocab-root">
+                                它的词根是 <strong>korkea (高的)</strong>。引申出来的意思就是"往高了算，最多也就..."。与它相对的是 <em>vähintään</em> (最少/起码，来自 <em>vähä</em> 少)。
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="vocab-card">
+                        <div class="vocab-word">Kerromme nyt, mitä muutos tarkoittaa ja millaisia vaikutuksia sillä voi olla.</div>
+                        <div class="vocab-meaning">🏷️ 我们现在来讲，改变意味着什么，以及它可能会有什么样的影响。</div>
+                        <div class="vocab-detail">
+                            <p><strong>🔍 "拥有"句型的进阶用法：</strong></p>
+                            <ul>
+                                <li><em>muutos</em> (改变)：名词，来自动词 <em>muuttaa</em> (改变/搬家)。</li>
+                                <li><em>vaikutuksia</em> (影响)：名词 <em>vaikutus</em> 的复数部分格，来自动词 <em>vaikuttaa</em> (影响/看起来像)。</li>
+                                <li><em>sillä voi olla</em> (它可能拥有)：</li>
+                            </ul>
+                            <div class="vocab-root">
+                                芬兰语没有"have"这个动词，表达"有"的时候用的是 <strong>"在某人/某物身上 (接格 -lla) + on/olla"</strong>。<br><br>
+                                这里的主语是 <em>muutos</em> (改变)，用代词 <em>se</em> 指代。<em>se</em> 的接格就是 <strong>sillä</strong>。<br><br>
+                                所以 <em>sillä voi olla vaikutuksia</em> 字面意思是："在它身上，可以有影响"。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 总结 -->
+                <div class="summary-box">
+                    <h3>💡 总结</h3>
+                    <p>这段新闻不仅非常贴近生活，还完美展示了芬兰语是怎么通过<strong>"拼积木"</strong>把几个简单的词（takaisin + maksu + aika）拼成一个极其精准的长词的。</p>
+                    <p>并且，你今天学到了两个在职场、看合同、看新闻时绝对会用到的高级表达：</p>
+                    <ul>
+                        <li><strong>tulla voimaan</strong> (生效)</li>
+                        <li><strong>korkeintaan</strong> (最多/上限)</li>
+                    </ul>
+                    <p>接下来，我们要不要继续听听这篇新闻的后续？看看芬兰政府和银行是怎么解释这个"房贷变长"带来的影响 (<em>vaikutus</em>) 的？或者你有其他想练习的地方吗？</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>📅 每日更新 · 由 Kiki 制作</p>
+    </footer>
+</body>
+</html>
