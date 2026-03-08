@@ -38,7 +38,7 @@
             padding: 0 15px;
         }
         
-        /* 日期导航 - 横向滚动 */
+        /* 日期导航 */
         .date-nav {
             display: flex;
             gap: 8px;
@@ -224,7 +224,6 @@
         
         footer { text-align: center; padding: 30px 15px; color: #666; font-size: 0.85rem; }
         
-        /* 隐藏旧内容 */
         .news-content { display: block; }
         .hidden { display: none !important; }
     </style>
@@ -240,27 +239,24 @@
     <div class="container">
         <!-- 日期导航 -->
         <div class="date-nav" id="dateNav">
-            <button class="date-btn active" data-date="2026-03-08">3月8日(周六)</button>
-            <button class="date-btn" data-date="2026-03-07">3月7日(周五)</button>
-            <button class="date-btn" data-date="2026-03-06">3月6日(周四)</button>
-            <button class="date-btn" data-date="2026-03-05">3月5日(周三)</button>
+            <button class="date-btn active" data-date="2026-03-08">3月8日(周日)</button>
         </div>
         
         <!-- 2026-03-08 内容 -->
         <div class="news-content" id="news-2026-03-08">
             <div class="news-card">
                 <div class="news-header">
-                    <span class="news-date">📅 2026年3月8日 · 周六</span>
+                    <span class="news-date">📅 2026年3月8日 · 周日</span>
                     <div class="news-actions">
                         <a href="https://yle.fi/selkouutiset" target="_blank" class="action-btn btn-original">🔗 原文</a>
-                        <a href="https://arenan.yle.fi/radio-ohjelmat/selkouutiset" target="_blank" class="action-btn btn-audio">🎧 音频</a>
+                        <a href="https://yle.fi/a/74-20214154" target="_blank" class="action-btn btn-audio">🎧 播放音频</a>
                     </div>
                 </div>
                 
                 <h2 class="news-title">Asuntolainojen takaisinmaksuajan pidentyminen</h2>
-                <p class="news-topic">本周主题：芬兰</p>
+                <p class="news-topic">本周主题：芬兰房贷还款期限延长</p>
                 
-房贷还款期限延长                <div class="summary">
+                <div class="summary">
                     <h3>新闻摘要</h3>
                     <p>芬兰将于4月实施新法律，允许最长35年的房贷还款期（此前通常最长25-30年）。这意味着每月还款额降低，但也意味着支付更多利息。</p>
                 </div>
@@ -496,43 +492,6 @@
                 </div>
             </div>
         </div>
-        
-        <!-- 其他日期（暂无可用新闻） -->
-        <div class="news-content hidden" id="news-2026-03-07">
-            <div class="news-card">
-                <div class="news-header">
-                    <span class="news-date">📅 2026年3月7日 · 周五</span>
-                </div>
-                <div class="summary">
-                    <h3>即将推出</h3>
-                    <p>3月7日的新闻正在准备中。请选择其他日期或明天再来！</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="news-content hidden" id="news-2026-03-06">
-            <div class="news-card">
-                <div class="news-header">
-                    <span class="news-date">📅 2026年3月6日 · 周四</span>
-                </div>
-                <div class="summary">
-                    <h3>即将推出</h3>
-                    <p>3月6日的新闻正在准备中。请选择其他日期或明天再来！</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="news-content hidden" id="news-2026-03-05">
-            <div class="news-card">
-                <div class="news-header">
-                    <span class="news-date">📅 2026年3月5日 · 周三</span>
-                </div>
-                <div class="summary">
-                    <h3>即将推出</h3>
-                    <p>3月5日的新闻正在准备中。请选择其他日期或明天再来！</p>
-                </div>
-            </div>
-        </div>
     </div>
     
     <footer>
@@ -543,11 +502,9 @@
         // 日期切换功能
         document.querySelectorAll('.date-btn').forEach(btn => {
             btn.addEventListener('click', function() {
-                // 更新按钮状态
                 document.querySelectorAll('.date-btn').forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
                 
-                // 显示对应内容
                 const date = this.getAttribute('data-date');
                 document.querySelectorAll('.news-content').forEach(content => {
                     content.classList.add('hidden');
